@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="images/myicon.ico">
+<title>Phoenixx IT | Digital & Technology Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--or:#ff6b01;--or2:#ff9340;--bg:#0f0f0f;--surface:#141414;--sec:#0a0a0a;
+--text:#aaa;--white:#fff;--border:rgba(255,255,255,0.07);
+--font-body:'Inter',sans-serif;--font-display:'Instrument Serif',serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:var(--font-body);overflow-x:hidden;line-height:1.6;cursor:none}
+
+/* ── CUSTOM CURSOR ── */
+#cursor{position:fixed;width:12px;height:12px;background:var(--or);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s,opacity .2s;mix-blend-mode:normal}
+#cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(255,107,1,.5);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:width .35s cubic-bezier(.25,.46,.45,.94),height .35s cubic-bezier(.25,.46,.45,.94),border-color .3s,transform .08s linear;left:-100px;top:-100px}
+#cursor-trail{position:fixed;pointer-events:none;z-index:99997}
+.cursor-dot{position:absolute;width:4px;height:4px;background:rgba(255,107,1,.4);border-radius:50%;transform:translate(-50%,-50%);transition:opacity .5s}
+body.cursor-hover #cursor{width:20px;height:20px;background:var(--or2)}
+body.cursor-hover #cursor-ring{width:52px;height:52px;border-color:rgba(255,107,1,.8)}
+body.cursor-click #cursor{width:8px;height:8px;background:#fff}
+
+/* ── LOADING ── */
+#loading{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;justify-content:center;align-items:center}
+#loading.done{animation:loadOut .6s ease forwards}
+@keyframes loadOut{to{opacity:0;transform:scale(1.03);pointer-events:none}}
+.ld-label{position:absolute;top:2rem;left:2rem;font-size:.7rem;color:var(--text);text-transform:uppercase;letter-spacing:.3em}
+.ld-word{font-family:var(--font-display);font-style:italic;font-size:clamp(2.5rem,8vw,5rem);color:rgba(255,107,1,.9);transition:all .25s ease}
+.ld-counter{position:absolute;bottom:3rem;right:2rem;font-family:var(--font-display);font-size:clamp(4rem,12vw,8rem);color:var(--white);font-variant-numeric:tabular-nums;line-height:1}
+.ld-bar-wrap{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,107,1,.12)}
+.ld-bar{height:100%;background:linear-gradient(90deg,#ff6b01,#ff9340);transform-origin:left;transform:scaleX(0);box-shadow:0 0 12px rgba(255,107,1,.6)}
+
+.container{max-width:1200px;margin:0 auto;padding:0 24px;position:relative;z-index:2}
+
+/* ── NAV ── */
+#navbar{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:center;padding:1rem 1rem 0}
+.nav-pill{display:inline-flex;align-items:center;border-radius:9999px;backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);background:rgba(14,14,14,.75);padding:.65rem .95rem;gap:.85rem;transition:box-shadow .3s,transform .3s}
+.nav-pill.scrolled{box-shadow:0 10px 48px rgba(0,0,0,.55)}
+.nav-logo-wrap{display:flex;align-items:center;gap:.8rem;cursor:pointer}
+.nav-logo-icon{width:auto;height:auto;background:transparent;border:none;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;transition:transform .3s,box-shadow .3s}
+.nav-logo-icon img{width:6.6rem;height:auto;object-fit:contain;display:block}
+.nav-logo-wrap > div{display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
+.nav-logo-wrap:hover .nav-logo-icon{transform:scale(1.06);box-shadow:0 0 24px rgba(255,255,255,.08)}
+.nav-brand{font-family:var(--font-display);font-style:italic;font-size:1.14rem;color:var(--white)}
+.nav-tagline{font-family:var(--font-body);font-size:.78rem;color:var(--text);margin-top:2px;font-weight:500;opacity:.95}
+.nav-divider{width:1px;height:1.25rem;background:rgba(255,255,255,.1);margin:0 .25rem}
+.nav-link{font-size:.8rem;border-radius:9999px;padding:.375rem .875rem;color:var(--text);cursor:pointer;transition:all .25s;white-space:nowrap;border:none;background:none;font-family:var(--font-body);text-decoration:none;position:relative;overflow:hidden}
+.nav-link::after{content:'';position:absolute;bottom:4px;left:50%;transform:translateX(-50%) scaleX(0);width:60%;height:1.5px;background:var(--or);border-radius:2px;transition:transform .25s}
+.nav-link:hover{color:var(--white)}
+.nav-link:hover::after{transform:translateX(-50%) scaleX(1)}
+.nav-cta{font-size:.8rem;border-radius:9999px;padding:.375rem 1rem;color:#fff;background:linear-gradient(135deg,#ff6b01,#ff9340);border:none;cursor:pointer;font-family:var(--font-body);font-weight:600;transition:all .25s;white-space:nowrap;text-decoration:none;position:relative;overflow:hidden}
+.nav-cta::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,.15);opacity:0;transition:opacity .2s}
+.nav-cta:hover::before{opacity:1}
+.nav-cta:hover{transform:scale(1.06);box-shadow:0 4px 18px rgba(255,107,1,.5)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:transparent;border:none;cursor:pointer;padding:8px}
+.hamburger span{width:22px;height:2px;background:var(--white);border-radius:2px;transition:all .3s;display:block}
+.hamburger.active span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{position:fixed;top:0;right:-100%;width:75%;max-width:280px;height:100vh;background:#000;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2rem;z-index:999;transition:right .4s cubic-bezier(.4,0,.2,1);border-left:1px solid rgba(255,255,255,.1);padding:2rem}
+.mobile-menu.open{right:0}
+.mobile-menu a{font-size:1.2rem;color:var(--white);text-decoration:none;font-weight:500}
+.mobile-menu .nav-cta{width:100%;text-align:center;padding:.75rem 1.5rem;font-size:1rem}
+
+/* ── HERO ── */
+#hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.28) saturate(.7);z-index:0}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.3) 0%,rgba(0,0,0,.05) 40%,rgba(0,0,0,.85) 100%),linear-gradient(120deg,rgba(0,0,0,.7),rgba(194,65,12,.18),rgba(0,0,0,.6));z-index:1}
+.hero-fade{position:absolute;bottom:0;left:0;right:0;height:10rem;background:linear-gradient(to top,var(--bg),transparent);z-index:2}
+.hero-content{position:relative;z-index:3;text-align:center;max-width:860px;padding:8rem 1.5rem 4rem}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,107,1,.15);border:1px solid rgba(255,107,1,.4);color:var(--or2);padding:8px 20px;border-radius:100px;font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.5rem;opacity:0;animation:fadeInDown .8s ease forwards}
+.hero h1{font-size:clamp(2.2rem,5.5vw,3.8rem);font-weight:800;color:var(--white);margin-bottom:1.5rem;line-height:1.15;letter-spacing:-.02em;opacity:0;animation:fadeInUp .9s ease .2s both}
+.hero h1 span{background:linear-gradient(135deg,var(--or),#fdba74);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:1.05rem;color:rgba(255,255,255,.78);margin-bottom:2.5rem;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.75;opacity:0;animation:fadeInUp .9s ease .4s both}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeInUp .9s ease .6s both}
+.btn{display:inline-flex;align-items:center;padding:14px 28px;border-radius:9999px;font-weight:600;text-decoration:none;transition:all .3s;font-size:.9rem;border:none;cursor:pointer;font-family:var(--font-body);position:relative;overflow:hidden}
+.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.12);opacity:0;transition:opacity .2s}
+.btn:hover::after{opacity:1}
+.btn-primary{background:linear-gradient(135deg,var(--or),var(--or2));color:#fff;box-shadow:0 4px 20px rgba(255,107,1,.4)}
+.btn-primary:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 12px 32px rgba(255,107,1,.55)}
+.btn-outline{background:transparent;border:2px solid rgba(255,255,255,.3);color:#fff}
+.btn-outline:hover{background:#fff;color:var(--bg);transform:translateY(-3px);border-color:#fff}
+.scroll-ind{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:5;display:flex;flex-direction:column;align-items:center;gap:.5rem;color:rgba(255,255,255,.3);font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── SECTIONS ── */
+.section{padding:5.5rem 0;background:var(--bg)}
+.section.alt{background:#0c0c0c}
+.sec-title{text-align:center;margin-bottom:3.5rem}
+.sec-title h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;margin-bottom:.75rem}
+.sec-title h2 em{font-family:var(--font-display);font-style:italic;background:linear-gradient(135deg,var(--or),#fdba74);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sec-title p{color:var(--text);font-size:1rem;max-width:560px;margin:0 auto}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,107,1,.1);border:1px solid rgba(255,107,1,.3);color:var(--or2);padding:6px 18px;border-radius:100px;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:2rem}
+.about-prose{color:var(--text);font-size:.97rem;line-height:1.85}
+.about-prose p+p{margin-top:1rem}
+.pills{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.5rem}
+.pill{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:100px;font-size:.82rem;font-weight:600;background:rgba(255,107,1,.08);border:1px solid rgba(255,107,1,.25);color:var(--or2);transition:all .25s;cursor:default;position:relative;overflow:hidden}
+.pill::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,107,1,.2),rgba(255,147,64,.1));opacity:0;transition:opacity .25s;border-radius:100px}
+.pill:hover{transform:translateY(-2px) scale(1.05);box-shadow:0 6px 18px rgba(255,107,1,.2);border-color:var(--or)}
+.pill:hover::before{opacity:1}
+
+/* STAT CARDS */
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:1.5rem;position:relative;overflow:hidden;transition:all .3s;transform-style:preserve-3d}
+.stat-card .glow{position:absolute;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,1,.25),transparent 70%);pointer-events:none;transition:all .15s;opacity:0;transform:translate(-50%,-50%)}
+.stat-card:hover .glow{opacity:1}
+.stat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--or),var(--or2));transform:scaleX(0);transform-origin:left;transition:transform .4s ease}
+.stat-card:hover::after{transform:scaleX(1)}
+.stat-card:hover{border-color:rgba(255,107,1,.4);box-shadow:0 20px 50px rgba(255,107,1,.14)}
+.stat-card.wide{grid-column:span 2}
+.stat-icon{width:46px;height:46px;border-radius:12px;background:rgba(255,107,1,.1);display:flex;align-items:center;justify-content:center;margin-bottom:.9rem;font-size:1.2rem;color:var(--or);transition:all .3s}
+.stat-card:hover .stat-icon{background:rgba(255,107,1,.22);transform:scale(1.12) rotate(-5deg)}
+.stat-num{font-size:2.6rem;font-weight:800;color:var(--or);line-height:1;margin-bottom:.3rem}
+.stat-label{color:var(--text);font-size:.85rem;font-weight:500}
+.ring-wrap{display:flex;align-items:center;gap:1.5rem}
+.ring-svg{transform:rotate(-90deg);flex-shrink:0}
+.ring-track{fill:none;stroke:rgba(255,107,1,.1);stroke-width:10}
+.ring-fill{fill:none;stroke:url(#rg);stroke-width:10;stroke-linecap:round;stroke-dasharray:251;stroke-dashoffset:251;transition:stroke-dashoffset 1.8s cubic-bezier(.4,0,.2,1)}
+
+/* ── SERVICES ── */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.5rem}
+.service-card{background:var(--surface);padding:2rem;border-radius:20px;border:1px solid var(--border);transition:all .3s;cursor:default;position:relative;overflow:hidden;transform-style:preserve-3d}
+.service-card .sc-glow{position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,1,.15),transparent 70%);pointer-events:none;transform:translate(-50%,-50%);opacity:0;transition:opacity .2s}
+.service-card:hover .sc-glow{opacity:1}
+.service-card::before{content:'';position:absolute;inset:0;border-radius:20px;background:linear-gradient(135deg,rgba(255,107,1,.05),transparent);opacity:0;transition:opacity .3s}
+.service-card:hover::before{opacity:1}
+.service-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--or),transparent);transform:scaleX(0);transition:transform .4s}
+.service-card:hover::after{transform:scaleX(1)}
+.service-card:hover{transform:translateY(-10px) scale(1.02);box-shadow:0 24px 50px rgba(255,107,1,.12);border-color:rgba(255,107,1,.35)}
+.service-icon{width:52px;height:52px;border-radius:14px;background:rgba(255,107,1,.1);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--or);margin-bottom:1.25rem;transition:all .3s}
+.service-card:hover .service-icon{background:rgba(255,107,1,.22);transform:scale(1.15) rotate(-8deg);box-shadow:0 8px 20px rgba(255,107,1,.3)}
+.service-card h3{font-size:1.05rem;font-weight:600;margin-bottom:.6rem;transition:color .2s}
+.service-card:hover h3{color:var(--or2)}
+.service-card p{color:var(--text);font-size:.88rem;line-height:1.7}
+.service-arrow{position:absolute;bottom:1.25rem;right:1.25rem;width:32px;height:32px;border-radius:50%;background:rgba(255,107,1,.1);display:flex;align-items:center;justify-content:center;font-size:.75rem;color:var(--or);opacity:0;transform:translate(8px,-8px);transition:all .3s}
+.service-card:hover .service-arrow{opacity:1;transform:translate(0,0)}
+
+/* ── SUCCESS ── */
+.success-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem}
+.success-card{background:var(--surface);padding:2rem;border-radius:20px;border:1px solid var(--border);text-align:center;position:relative;overflow:hidden;transition:all .3s;cursor:default}
+.success-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--or),var(--or2))}
+.success-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,107,1,.06),transparent);opacity:0;transition:opacity .3s}
+.success-card:hover::after{opacity:1}
+.success-card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 24px 50px rgba(255,107,1,.14);border-color:rgba(255,107,1,.3)}
+.success-num{font-family:var(--font-display);font-style:italic;font-size:2.8rem;font-weight:700;background:linear-gradient(135deg,var(--or),#fdba74);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:.4rem;transition:transform .3s}
+.success-card:hover .success-num{transform:scale(1.1)}
+.success-card h3{font-size:1rem;font-weight:600;margin-bottom:.5rem;transition:color .2s}
+.success-card:hover h3{color:var(--or2)}
+.success-card p{color:var(--text);font-size:.85rem}
+
+/* ── CLIENTS ── */
+.clients-wrap{overflow:hidden;position:relative}
+.clients-wrap::before,.clients-wrap::after{content:'';position:absolute;top:0;bottom:0;width:100px;z-index:2;pointer-events:none}
+.clients-wrap::before{left:0;background:linear-gradient(to right,#0c0c0c,transparent)}
+.clients-wrap::after{right:0;background:linear-gradient(to left,#0c0c0c,transparent)}
+.clients-track{display:flex;gap:2rem;animation:scrollLeft 28s linear infinite;width:max-content}
+.clients-track:hover{animation-play-state:paused}
+@keyframes scrollLeft{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.client-logo{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:20px 32px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:16px;min-width:160px;transition:all .3s;flex-shrink:0;cursor:default;position:relative;overflow:hidden}
+.client-logo::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,107,1,.08),transparent);opacity:0;transition:opacity .3s}
+.client-logo:hover{background:rgba(255,107,1,.08);border-color:rgba(255,107,1,.35);transform:translateY(-6px) scale(1.05);box-shadow:0 16px 40px rgba(255,107,1,.15)}
+.client-logo:hover::after{opacity:1}
+.client-icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#fff;margin-bottom:4px;transition:transform .3s}
+.client-logo:hover .client-icon{transform:scale(1.15) rotate(-5deg)}
+.client-logo span{font-weight:700;font-size:.9rem;color:rgba(255,255,255,.9);transition:color .2s}
+.client-logo:hover span{color:var(--or2)}
+.client-logo small{font-size:.72rem;color:#555;transition:color .2s}
+.client-logo:hover small{color:var(--text)}
+
+/* ── INDUSTRIES ── */
+.ind-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.ind-card{position:relative;height:240px;border-radius:20px;overflow:hidden;cursor:pointer;border:1px solid rgba(255,255,255,.07);transition:border-color .3s,box-shadow .3s}
+.ind-card:hover{border-color:rgba(255,107,1,.4);box-shadow:0 20px 50px rgba(255,107,1,.2)}
+.ind-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .5s ease,filter .5s ease;filter:brightness(.4) saturate(.7)}
+.ind-card:hover .ind-bg{transform:scale(1.1);filter:brightness(.2)}
+.ind-base{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;z-index:2;transition:opacity .35s}
+.ind-card:hover .ind-base{opacity:0}
+.ind-base i{font-size:2.2rem;color:#fff;filter:drop-shadow(0 0 14px rgba(255,107,1,.7));transition:transform .3s}
+.ind-card:hover .ind-base i{transform:scale(1.2)}
+.ind-base h4{font-size:1rem;font-weight:700;color:#fff;text-align:center;padding:0 1rem;text-shadow:0 2px 8px rgba(0,0,0,.6)}
+.ind-hover{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;gap:10px;opacity:0;transition:opacity .35s;z-index:3;text-align:center}
+.ind-card:hover .ind-hover{opacity:1}
+.ind-hover h4{font-size:1rem;font-weight:700;color:var(--or2);margin-bottom:4px}
+.ind-hover p{font-size:.82rem;color:rgba(255,255,255,.82);line-height:1.6}
+.ind-tag{display:inline-block;padding:4px 12px;background:rgba(255,107,1,.18);border:1px solid rgba(255,107,1,.4);border-radius:100px;font-size:.72rem;color:var(--or2);font-weight:600;margin-top:4px}
+/* orange edge glow on ind-card hover */
+.ind-card::after{content:'';position:absolute;inset:0;border-radius:20px;box-shadow:inset 0 0 0 2px rgba(255,107,1,0);transition:box-shadow .3s;z-index:10;pointer-events:none}
+.ind-card:hover::after{box-shadow:inset 0 0 0 2px rgba(255,107,1,.6)}
+
+/* ── CONTACT ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.contact-info h3{font-size:1.5rem;font-weight:700;margin-bottom:1rem}
+.contact-info p{color:var(--text);margin-bottom:2rem;line-height:1.8}
+.cinfo-item{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.25rem;padding:1rem;border-radius:14px;border:1px solid transparent;transition:all .3s;cursor:default}
+.cinfo-item:hover{background:rgba(255,107,1,.06);border-color:rgba(255,107,1,.2);transform:translateX(6px)}
+.cinfo-icon{width:42px;height:42px;border-radius:12px;background:rgba(255,107,1,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--or);font-size:1rem;transition:all .3s}
+.cinfo-item:hover .cinfo-icon{background:rgba(255,107,1,.25);transform:scale(1.1) rotate(-5deg)}
+.cinfo-item strong{display:block;font-weight:600;margin-bottom:2px;font-size:.9rem;transition:color .2s}
+.cinfo-item:hover strong{color:var(--or2)}
+.cinfo-item span{color:var(--text);font-size:.875rem}
+.map-wrap{margin-top:1.5rem;border-radius:16px;overflow:hidden;border:1px solid var(--border);height:200px;transition:border-color .3s,box-shadow .3s}
+.map-wrap:hover{border-color:rgba(255,107,1,.35);box-shadow:0 8px 30px rgba(255,107,1,.12)}
+.map-wrap iframe{width:100%;height:100%;border:none}
+.contact-form{background:var(--surface);padding:2.5rem;border-radius:20px;border:1px solid var(--border);transition:border-color .3s,box-shadow .3s;position:relative;overflow:hidden}
+.contact-form::before{content:'';position:absolute;top:-100px;right:-100px;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,1,.07),transparent 70%);pointer-events:none}
+.contact-form:hover{border-color:rgba(255,107,1,.2);box-shadow:0 16px 50px rgba(255,107,1,.08)}
+.form-group{margin-bottom:1.25rem;position:relative}
+.form-group label{display:block;margin-bottom:.4rem;font-weight:500;font-size:.88rem;transition:color .2s}
+.form-group:focus-within label{color:var(--or2)}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:12px 14px;border:1px solid rgba(255,255,255,.1);border-radius:12px;font-family:var(--font-body);font-size:.9rem;background:rgba(255,255,255,.04);color:#fff;transition:all .3s}
+.form-group select option{background:#1a1a1a;color:#fff}
+.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(255,255,255,.28)}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{outline:none;border-color:var(--or);box-shadow:0 0 0 3px rgba(255,107,1,.15);background:rgba(255,107,1,.04)}
+.form-group textarea{resize:vertical;min-height:110px}
+
+/* ── FOOTER ── */
+footer{background:var(--sec);padding:4rem 0 2rem;border-top:1px solid rgba(255,107,1,.12)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,.05)}
+.footer-brand p{color:#555;font-size:.88rem;line-height:1.7;max-width:260px;margin-top:.75rem}
+.footer-logo-text{font-family:var(--font-display);font-style:italic;font-size:1.75rem;color:var(--white);display:flex;align-items:center;gap:.75rem}
+.footer-logo-img{height:3.2rem;width:auto;display:block}
+.footer-logo-text span{color:var(--or)}
+.socials{display:flex;gap:10px;margin-top:1.5rem}
+.social-btn{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.95rem;color:#fff;border:1px solid rgba(255,255,255,.1);text-decoration:none;transition:all .3s}
+.social-btn:hover{transform:translateY(-4px) scale(1.1);border-color:transparent;box-shadow:0 8px 20px rgba(0,0,0,.3)}
+.social-btn.fb{background:#1877f2}.social-btn.ig{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366)}.social-btn.li{background:#0a66c2}
+.footer-col h4{color:#fff;font-weight:700;font-size:.95rem;margin-bottom:1rem}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:.5rem}
+.footer-col ul li a{color:#444;text-decoration:none;font-size:.875rem;transition:all .25s;display:inline-flex;align-items:center;gap:6px}
+.footer-col ul li a::before{content:'';width:0;height:1px;background:var(--or);transition:width .25s;display:inline-block;vertical-align:middle}
+.footer-col ul li a:hover{color:var(--or2);padding-left:4px}
+.footer-col ul li a:hover::before{width:12px}
+.footer-bottom{text-align:center;font-size:.82rem;color:#333}
+
+/* ── MARQUEE ── */
+.marquee-wrap{overflow:hidden;margin-bottom:3rem;mask-image:linear-gradient(90deg,transparent,black 10%,black 90%,transparent)}
+.marquee-track{display:flex;animation:marquee 40s linear infinite;width:max-content}
+.marquee-text{font-family:var(--font-display);font-style:italic;font-size:clamp(2rem,6vw,4rem);color:rgba(255,107,1,.07);white-space:nowrap;padding-right:2rem;transition:color .3s}
+.marquee-wrap:hover .marquee-text{color:rgba(255,107,1,.14)}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+.chat-widget{position:fixed;bottom:18px;right:18px;z-index:9999;font-family:var(--font-body);} 
+.chat-toggle{width:clamp(60px,11vw,92px);height:clamp(60px,11vw,92px);border-radius:50%;border:none;background:rgba(255,255,255,.08);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 16px 36px rgba(0,0,0,.2);transition:transform .25s,box-shadow .25s;position:relative;overflow:hidden;padding:10px}
+.chat-toggle:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 20px 40px rgba(0,0,0,.24)}
+.chat-toggle svg{width:100%;height:auto;display:block}
+.chat-robot-svg{width:70%;height:auto;will-change:transform;animation:floatY 3.2s ease-in-out infinite}
+.chat-robot-svg .robot-eye{animation:robotBlink 4s steps(1,end) infinite}
+@keyframes robotBlink{0%,90%{opacity:1}94%{opacity:0}100%{opacity:1}}
+@keyframes floatY{0%{transform:translateY(0)}50%{transform:translateY(-4px)}100%{transform:translateY(0)}}
+@media(max-width:520px){
+  .chat-widget{right:14px;left:auto;bottom:14px}
+  .chat-toggle{width:58px;height:58px;padding:8px}
+  .chat-robot-svg{width:78%}
+  .chat-panel{position:fixed;bottom:76px;right:6px;left:6px;width:auto;max-width:none;min-width:auto;border-radius:20px;}
+}
+@keyframes logoBounce{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-4px) scale(1.045)}}
+@keyframes logoGlow{0%,100%{filter:drop-shadow(0 0 0 rgba(255,255,255,0));box-shadow:0 10px 30px rgba(255,107,1,.28)}40%{filter:drop-shadow(0 0 20px rgba(255,182,95,.55));box-shadow:0 14px 42px rgba(255,107,1,.48);}}
+@keyframes chatBubble{0%,78%{opacity:.95;transform:translateY(0)}80%{opacity:0;transform:translateY(-6px)}100%{opacity:0;transform:translateY(-6px)}}
+.chat-panel{position:absolute;bottom:88px;right:0;width:340px;max-width:calc(100vw - 32px);background:rgba(18,18,18,.96);border:1px solid rgba(255,255,255,.12);border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.45);overflow:hidden;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .25s ease,transform .25s ease,visibility .25s ease}
+.chat-widget.open .chat-panel{opacity:1;visibility:visible;transform:translateY(0)}
+.chat-header{padding:16px 16px 12px 16px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:.75rem}
+.chat-header .chat-title{font-size:1rem;font-weight:700;color:#fff;line-height:1.2}
+.chat-header .chat-subtitle{font-size:.78rem;color:rgba(255,255,255,.65)}
+.chat-body{max-height:320px;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:.75rem;background:rgba(0,0,0,.15)}
+.chat-message{display:flex}
+.chat-message.user{justify-content:flex-end}
+.chat-message.bot{justify-content:flex-start}
+.chat-bubble{max-width:82%;padding:10px 14px;border-radius:18px;font-size:.88rem;line-height:1.4}
+.chat-message.user .chat-bubble{background:linear-gradient(135deg,#ff6b01,#ff9340);color:#fff;border-bottom-right-radius:4px}
+.chat-message.bot .chat-bubble{background:rgba(255,255,255,.08);color:#fff;border-bottom-left-radius:4px}
+.chat-input-wrap{display:flex;gap:.5rem;padding:12px 14px;background:rgba(255,255,255,.03);border-top:1px solid rgba(255,255,255,.08)}
+.chat-input{flex:1;padding:12px 14px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:rgba(255,255,255,.05);color:#fff;outline:none;font-size:.9rem}
+.chat-input::placeholder{color:rgba(255,255,255,.5)}
+.chat-send{width:44px;height:44px;border:none;border-radius:14px;background:linear-gradient(135deg,#ff6b01,#ff9340);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:transform .2s}
+.chat-send:hover{transform:scale(1.03)}
+@media(max-width:420px){.chat-panel{width:100%;right:0;border-radius:20px}}
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
+.reveal.vis{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-32px);transition:opacity .7s ease,transform .7s ease}
+.reveal-left.vis{opacity:1;transform:translateX(0)}
+.reveal-scale{opacity:0;transform:scale(.9);transition:opacity .6s ease,transform .6s ease}
+.reveal-scale.vis{opacity:1;transform:scale(1)}
+
+/* ── TILT CARD ── */
+.tilt{transform-style:preserve-3d;will-change:transform}
+
+/* ── RIPPLE ── */
+.ripple-container{position:relative;overflow:hidden}
+.ripple{position:absolute;border-radius:50%;background:rgba(255,107,1,.25);transform:scale(0);animation:rippleAnim .6s linear;pointer-events:none}
+@keyframes rippleAnim{to{transform:scale(4);opacity:0}}
+
+@media(max-width:900px){.about-grid,.contact-grid{grid-template-columns:1fr;gap:2rem}.ind-grid{grid-template-columns:repeat(2,1fr)}.footer-grid{grid-template-columns:1fr;gap:2rem}.stats-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.hamburger{display:flex}.desktop-nav{display:none}.ind-grid{grid-template-columns:1fr}.hero-btns{flex-direction:column;align-items:center}.hero-btns .btn{width:100%;max-width:280px;justify-content:center}}
+@media(max-width:500px){.stats-grid{grid-template-columns:1fr}.stat-card.wide{grid-column:span 1}}
+
+/* ── INTERACTIVE SERVICE CARD FLIP ── */
+.service-card-wrap{perspective:900px;cursor:pointer}
+.service-card-inner{position:relative;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.4,0,.2,1)}
+.service-card-wrap.flipped .service-card-inner{transform:rotateY(180deg)}
+.service-card-front,.service-card-back{backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.service-card-back{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,107,1,.18),rgba(255,147,64,.08));border-radius:20px;border:1px solid rgba(255,107,1,.5);transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;text-align:center;gap:10px}
+.service-card-back h3{font-size:1rem;font-weight:700;color:var(--or2);margin-bottom:.4rem}
+.service-card-back p{color:rgba(255,255,255,.8);font-size:.84rem;line-height:1.65}
+.service-card-back .flip-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:100px;background:rgba(255,107,1,.2);border:1px solid rgba(255,107,1,.5);color:var(--or2);font-size:.76rem;font-weight:700;margin-top:6px}
+.service-card-hint{position:absolute;bottom:.75rem;right:.9rem;font-size:.68rem;color:rgba(255,107,1,.4);font-weight:600;letter-spacing:.05em;z-index:5;pointer-events:none;transition:color .3s}
+.service-card-wrap:hover .service-card-hint{color:rgba(255,107,1,.75)}
+
+/* ── INTERACTIVE SUCCESS CARDS ── */
+.success-card{cursor:pointer;user-select:none}
+.success-detail{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1),opacity .4s;opacity:0;margin-top:0}
+.success-card.expanded .success-detail{max-height:120px;opacity:1;margin-top:.75rem}
+.success-card.expanded{background:rgba(255,107,1,.07);border-color:rgba(255,107,1,.35)}
+.success-card.expanded .success-num{transform:scale(1.08)}
+.detail-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem;margin-top:.5rem}
+.detail-tag{padding:4px 10px;background:rgba(255,107,1,.15);border:1px solid rgba(255,107,1,.35);border-radius:100px;font-size:.72rem;color:var(--or2);font-weight:600}
+.success-card .expand-hint{font-size:.7rem;color:rgba(255,107,1,.35);margin-top:.4rem;transition:color .3s}
+.success-card:hover .expand-hint{color:rgba(255,107,1,.65)}
+.success-card.expanded .expand-hint{color:rgba(255,107,1,.7)}
+
+/* ── INTERACTIVE STAT CARDS ── */
+.stat-card{cursor:pointer}
+.stat-pulse{position:absolute;inset:0;border-radius:18px;border:2px solid rgba(255,107,1,0);transition:border-color .3s,box-shadow .3s;pointer-events:none}
+.stat-card.pulsed .stat-pulse{border-color:rgba(255,107,1,.6);box-shadow:0 0 24px rgba(255,107,1,.25);animation:statPulse .7s ease forwards}
+@keyframes statPulse{0%{border-color:rgba(255,107,1,.6)}70%{border-color:rgba(255,107,1,.2)}100%{border-color:rgba(255,107,1,0)}}
+
+/* ── INTERACTIVE CLIENT LOGOS ── */
+.client-logo{cursor:pointer}
+.client-logo.selected{background:rgba(255,107,1,.15)!important;border-color:rgba(255,107,1,.6)!important;transform:translateY(-10px) scale(1.08)!important;box-shadow:0 20px 50px rgba(255,107,1,.2)!important}
+.client-logo.selected span{color:var(--or2)!important}
+.client-popup{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%) scale(.9);background:#1a1a1a;border:1px solid rgba(255,107,1,.4);border-radius:12px;padding:10px 16px;white-space:nowrap;font-size:.8rem;color:#fff;opacity:0;pointer-events:none;transition:all .25s;z-index:100;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+.client-popup::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:rgba(255,107,1,.4)}
+.client-logo{position:relative}
+.client-logo:hover .client-popup,.client-logo.selected .client-popup{opacity:1;transform:translateX(-50%) scale(1)}
+
+/* ── INTERACTIVE INDUSTRY CARDS ── */
+.ind-card{cursor:pointer}
+.ind-card.locked .ind-bg{transform:scale(1.1);filter:brightness(.2)!important}
+.ind-card.locked .ind-base{opacity:0}
+.ind-card.locked .ind-hover{opacity:1}
+.ind-lock-btn{position:absolute;top:.75rem;right:.75rem;z-index:20;width:28px;height:28px;border-radius:50%;background:rgba(255,107,1,.25);border:1px solid rgba(255,107,1,.5);color:var(--or2);font-size:.72rem;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s,background .2s}
+.ind-card:hover .ind-lock-btn,.ind-card.locked .ind-lock-btn{opacity:1}
+.ind-card.locked .ind-lock-btn{background:rgba(255,107,1,.5)}
+
+/* ── CONTACT FORM PROGRESS ── */
+.form-progress{display:flex;gap:8px;margin-bottom:1.5rem;align-items:center}
+.form-step-dot{width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:.72rem;color:rgba(255,255,255,.3);transition:all .3s;flex-shrink:0;font-weight:700}
+.form-step-dot.active{border-color:var(--or);color:var(--or);background:rgba(255,107,1,.12)}
+.form-step-dot.done{border-color:var(--or);background:var(--or);color:#fff}
+.form-step-line{flex:1;height:1px;background:rgba(255,255,255,.08);transition:background .4s}
+.form-step-line.done{background:var(--or)}
+</style>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- LOADING -->
+<div id="loading">
+  <div class="ld-label">Phoenixx IT</div>
+  <div class="ld-word" id="ld-word">Build</div>
+  <div class="ld-counter" id="ld-counter">000</div>
+  <div class="ld-bar-wrap"><div class="ld-bar" id="ld-bar"></div></div>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-pill" id="nav-pill">
+    <div class="nav-logo-wrap" onclick="document.getElementById('hero').scrollIntoView({behavior:'smooth'})">
+      <div class="nav-logo-icon">
+        <img src="images/logo.svg.svg" alt="Phoenixx IT logo" class="nav-logo-img">
+      </div>
+    </div>
+    <div class="nav-divider desktop-nav"></div>
+    <a href="#about" class="nav-link desktop-nav">About</a>
+    <a href="#services" class="nav-link desktop-nav">Services</a>
+    <a href="#clients" class="nav-link desktop-nav">Clients</a>
+    <a href="#industries" class="nav-link desktop-nav">Industries</a>
+    <div class="nav-divider desktop-nav"></div>
+    <a href="#contact" class="nav-cta desktop-nav">Contact Us</a>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#about">About</a><a href="#services">Services</a>
+  <a href="#clients">Clients</a><a href="#industries">Industries</a>
+  <a href="#contact" class="nav-cta">Contact Us</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="hero-net" style="position:absolute;inset:0;z-index:0;width:100%;height:100%"></canvas>
+  <div class="hero-overlay" style="background:linear-gradient(to bottom,rgba(0,0,0,.55) 0%,rgba(0,0,0,.1) 40%,rgba(0,0,0,.9) 100%),linear-gradient(120deg,rgba(0,0,0,.7),rgba(194,65,12,.18),rgba(0,0,0,.6))"></div>
+  <div class="hero-fade"></div>
+  <canvas id="hero-canvas" style="position:absolute;inset:0;z-index:2;pointer-events:none;width:100%;height:100%"></canvas>
+  <div class="container">
+    <div class="hero-content">
+      <h1>10X Your Revenue with <span>Digital & Technology Solutions</span></h1>
+      <p class="hero-sub">From Digital Marketing and Website Development to Automation, Branding, Mobile Apps and Lead Generation — we help businesses grow faster and smarter.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn btn-primary ripple-container" id="cta-btn"><i class="fa-solid fa-paper-plane" style="margin-right:8px"></i>Get Free Consultation</a>
+        <a href="#services" class="btn btn-outline">Explore Services</a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-ind"><span>Scroll</span><i class="fa-solid fa-chevron-down"></i></div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:1rem" class="reveal">
+      <div class="eyebrow"><i class="fa-solid fa-star" style="font-size:.75rem"></i> About Phoenixx IT</div>
+      <h2 style="font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;margin-bottom:.75rem">We Build <em style="font-family:'Instrument Serif',serif;font-style:italic;background:linear-gradient(135deg,#ff6b01,#fdba74);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent">Digital Empires</em></h2>
+      <p style="color:var(--text);max-width:560px;margin:0 auto">A team of digital innovators, developers and marketers dedicated to transforming businesses through cutting-edge technology.</p>
+    </div>
+    <div class="about-grid" style="margin-top:3rem">
+      <div>
+        <div class="about-prose reveal-left">
+          <p>From bold startups to established enterprises, we craft tailored digital experiences that drive real growth. Our multidisciplinary team brings together creativity, data intelligence, and technical excellence — all under one roof.</p>
+          <p>We don't just deliver projects. We build long-term partnerships anchored in transparency, innovation, and measurable results that matter to your bottom line.</p>
+        </div>
+        <div class="pills reveal" style="transition-delay:.2s">
+          <span class="pill"><i class="fa-solid fa-check" style="font-size:.72rem"></i>Data-Driven</span>
+          <span class="pill"><i class="fa-solid fa-check" style="font-size:.72rem"></i>ROI Focused</span>
+          <span class="pill"><i class="fa-solid fa-check" style="font-size:.72rem"></i>Full-Stack Digital</span>
+          <span class="pill"><i class="fa-solid fa-check" style="font-size:.72rem"></i>AI Powered</span>
+          <span class="pill"><i class="fa-solid fa-check" style="font-size:.72rem"></i>Pan-India Reach</span>
+          <span class="pill"><i class="fa-solid fa-check" style="font-size:.72rem"></i>24/7 Support</span>
+        </div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card tilt reveal-scale" style="transition-delay:.1s">
+          <div class="glow"></div>
+          <div class="stat-icon"><i class="fa-solid fa-calendar-days"></i></div>
+          <div class="stat-num"><span class="count" data-target="5">0</span>+</div>
+          <div class="stat-label">Years of Experience</div>
+        </div>
+        <div class="stat-card tilt reveal-scale" style="transition-delay:.2s">
+          <div class="glow"></div>
+          <div class="stat-icon"><i class="fa-solid fa-star"></i></div>
+          <div class="stat-num"><span class="count" data-target="150">0</span>+</div>
+          <div class="stat-label">Projects Delivered</div>
+        </div>
+        <div class="stat-card wide tilt reveal-scale" style="transition-delay:.3s">
+          <div class="glow"></div>
+          <div class="ring-wrap">
+            <svg class="ring-svg" width="88" height="88" viewBox="0 0 88 88">
+              <defs><linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#ff6b01"/><stop offset="100%" stop-color="#ff9340"/></linearGradient></defs>
+              <circle class="ring-track" cx="44" cy="44" r="40"/>
+              <circle class="ring-fill" id="ring-fill" cx="44" cy="44" r="40"/>
+            </svg>
+            <div>
+              <div class="stat-num"><span class="count" data-target="98">0</span>%</div>
+              <div class="stat-label" style="font-size:.95rem;color:var(--white);font-weight:600;margin-bottom:.25rem">Client Satisfaction</div>
+              <div class="stat-label">Consistently delivering beyond expectations on every project.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section alt" id="services">
+  <div class="container">
+    <div class="sec-title reveal">
+      <div class="eyebrow"><i class="fa-solid fa-bolt" style="font-size:.75rem"></i> What We Do</div>
+      <h2>Our <em>Services</em></h2>
+      <p>Comprehensive digital solutions designed to accelerate your growth.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card-wrap tilt reveal" style="transition-delay:.05s"><div class="service-card-inner"><div class="service-card service-card-front ripple-container"><div class="sc-glow"></div><div class="service-icon"><i class="fa-solid fa-mobile-screen-button"></i></div><h3>App Development</h3><p>Native Android, iOS, and cross-platform mobile apps built for performance and scale.</p><div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div><span class="service-card-hint">Click to flip ↻</span></div><div class="service-card-back"><i class="fa-solid fa-mobile-screen-button" style="font-size:2rem;color:var(--or)"></i><h3>App Development</h3><p>We build React Native, Flutter & native apps. Full lifecycle from wireframe to App Store launch.</p><span class="flip-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7rem"></i> iOS · Android · Cross-Platform</span></div></div></div>
+      <div class="service-card-wrap tilt reveal" style="transition-delay:.1s"><div class="service-card-inner"><div class="service-card service-card-front ripple-container"><div class="sc-glow"></div><div class="service-icon"><i class="fa-solid fa-robot"></i></div><h3>Automation</h3><p>Workflow automation, CRM integrations, and AI-powered business solutions.</p><div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div><span class="service-card-hint">Click to flip ↻</span></div><div class="service-card-back"><i class="fa-solid fa-robot" style="font-size:2rem;color:var(--or)"></i><h3>Automation</h3><p>Zapier, Make, n8n & custom APIs. Eliminate repetitive work and integrate your entire stack seamlessly.</p><span class="flip-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7rem"></i> CRM · Zapier · AI Workflows</span></div></div></div>
+      <div class="service-card-wrap tilt reveal" style="transition-delay:.15s"><div class="service-card-inner"><div class="service-card service-card-front ripple-container"><div class="sc-glow"></div><div class="service-icon"><i class="fa-solid fa-laptop-code"></i></div><h3>Website Design & Development</h3><p>Responsive, modern, conversion-focused websites built for speed and security.</p><div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div><span class="service-card-hint">Click to flip ↻</span></div><div class="service-card-back"><i class="fa-solid fa-laptop-code" style="font-size:2rem;color:var(--or)"></i><h3>Web Development</h3><p>React, Next.js, WordPress & custom builds. 99+ Lighthouse scores with conversion-first architecture.</p><span class="flip-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7rem"></i> React · Next.js · WordPress</span></div></div></div>
+      <div class="service-card-wrap tilt reveal" style="transition-delay:.2s"><div class="service-card-inner"><div class="service-card service-card-front ripple-container"><div class="sc-glow"></div><div class="service-icon"><i class="fa-solid fa-rocket"></i></div><h3>Performance Marketing</h3><p>Data-driven campaigns optimized for maximum ROI and scalable growth.</p><div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div><span class="service-card-hint">Click to flip ↻</span></div><div class="service-card-back"><i class="fa-solid fa-rocket" style="font-size:2rem;color:var(--or)"></i><h3>Performance Marketing</h3><p>Google Ads, Meta Ads & programmatic campaigns engineered for 3–10× ROAS with real-time optimization.</p><span class="flip-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7rem"></i> Google · Meta · Programmatic</span></div></div></div>
+      <div class="service-card-wrap tilt reveal" style="transition-delay:.25s"><div class="service-card-inner"><div class="service-card service-card-front ripple-container"><div class="sc-glow"></div><div class="service-icon"><i class="fa-solid fa-bullhorn"></i></div><h3>Digital Marketing</h3><p>SEO, Google Ads, Meta Ads, Social Media Marketing and brand awareness campaigns.</p><div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div><span class="service-card-hint">Click to flip ↻</span></div><div class="service-card-back"><i class="fa-solid fa-bullhorn" style="font-size:2rem;color:var(--or)"></i><h3>Digital Marketing</h3><p>Full-funnel digital strategy: technical SEO, content, paid social, email & influencer marketing.</p><span class="flip-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7rem"></i> SEO · Social · Email</span></div></div></div>
+      <div class="service-card-wrap tilt reveal" style="transition-delay:.3s"><div class="service-card-inner"><div class="service-card service-card-front ripple-container"><div class="sc-glow"></div><div class="service-icon"><i class="fa-solid fa-users"></i></div><h3>Lead Generation</h3><p>Qualified B2B and B2C lead generation campaigns that consistently convert.</p><div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div><span class="service-card-hint">Click to flip ↻</span></div><div class="service-card-back"><i class="fa-solid fa-users" style="font-size:2rem;color:var(--or)"></i><h3>Lead Generation</h3><p>Intent-based targeting, landing page funnels & CRM nurturing — delivering purchase-ready leads.</p><span class="flip-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7rem"></i> B2B · B2C · Funnels</span></div></div></div>
+      <div class="service-card-wrap tilt reveal" style="transition-delay:.35s"><div class="service-card-inner"><div class="service-card service-card-front ripple-container"><div class="sc-glow"></div><div class="service-icon"><i class="fa-solid fa-bullseye"></i></div><h3>Branding & PR</h3><p>Brand strategy, visual identity design, and impactful PR campaigns.</p><div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div><span class="service-card-hint">Click to flip ↻</span></div><div class="service-card-back"><i class="fa-solid fa-bullseye" style="font-size:2rem;color:var(--or)"></i><h3>Branding & PR</h3><p>Logo, brand guidelines, tone-of-voice & press outreach that makes you unforgettable and media-ready.</p><span class="flip-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7rem"></i> Identity · Guidelines · Press</span></div></div></div>
+      <div class="service-card-wrap tilt reveal" style="transition-delay:.4s"><div class="service-card-inner"><div class="service-card service-card-front ripple-container"><div class="sc-glow"></div><div class="service-icon"><i class="fa-solid fa-photo-film"></i></div><h3>Design & Video Editing</h3><p>Creative graphics, motion design, and professional video production.</p><div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div><span class="service-card-hint">Click to flip ↻</span></div><div class="service-card-back"><i class="fa-solid fa-photo-film" style="font-size:2rem;color:var(--or)"></i><h3>Design & Video</h3><p>Reels, explainer videos, UGC ads & scroll-stopping graphics crafted to boost engagement and recall.</p><span class="flip-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7rem"></i> Motion · UGC · Reels</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SUCCESS STORIES -->
+<section class="section" id="portfolio">
+  <div class="container">
+    <div class="sec-title reveal">
+      <div class="eyebrow"><i class="fa-solid fa-trophy" style="font-size:.75rem"></i> Success Stories</div>
+      <h2>Real <em>Results</em></h2>
+      <p>Measurable outcomes we've delivered for our clients across India.</p>
+    </div>
+    <div class="success-grid">
+      <div class="success-card tilt reveal" style="transition-delay:.05s"><div class="success-num">650+</div><h3>Education Marketing Campaign</h3><p>Qualified admission leads generated</p><div class="success-detail"><div class="detail-tags"><span class="detail-tag">Meta Ads</span><span class="detail-tag">Lead Funnels</span><span class="detail-tag">WhatsApp CRM</span></div><p style="font-size:.8rem;color:var(--text);margin-top:.5rem">Ran hyper-targeted campaigns for a Coimbatore college, achieving ₹48 cost-per-lead.</p></div><div class="expand-hint">↓ Click to see details</div></div>
+      <div class="success-card tilt reveal" style="transition-delay:.1s"><div class="success-num">4.5×</div><h3>E-Commerce Growth Campaign</h3><p>Return On Ad Spend achieved</p><div class="success-detail"><div class="detail-tags"><span class="detail-tag">Google Shopping</span><span class="detail-tag">Retargeting</span><span class="detail-tag">CRO</span></div><p style="font-size:.8rem;color:var(--text);margin-top:.5rem">Scaled a fashion brand from ₹2L to ₹9L monthly ad revenue in 90 days.</p></div><div class="expand-hint">↓ Click to see details</div></div>
+      <div class="success-card tilt reveal" style="transition-delay:.15s"><div class="success-num">60%</div><h3>Business Automation Project</h3><p>Reduction in manual workload</p><div class="success-detail"><div class="detail-tags"><span class="detail-tag">Zapier</span><span class="detail-tag">CRM Integration</span><span class="detail-tag">Reporting</span></div><p style="font-size:.8rem;color:var(--text);margin-top:.5rem">Automated invoicing, follow-ups and analytics for a B2B services firm, saving 40hrs/week.</p></div><div class="expand-hint">↓ Click to see details</div></div>
+      <div class="success-card tilt reveal" style="transition-delay:.2s"><div class="success-num">3×</div><h3>Website Revamp Project</h3><p>Increase in lead conversion rate</p><div class="success-detail"><div class="detail-tags"><span class="detail-tag">UX Redesign</span><span class="detail-tag">Speed Opt.</span><span class="detail-tag">A/B Testing</span></div><p style="font-size:.8rem;color:var(--text);margin-top:.5rem">Redesigned a real estate portal — page load under 1.5s, bounce rate dropped 38%.</p></div><div class="expand-hint">↓ Click to see details</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section class="section alt" id="clients">
+  <div class="container">
+    <div class="sec-title reveal">
+      <div class="eyebrow"><i class="fa-solid fa-handshake" style="font-size:.75rem"></i> Clients</div>
+      <h2>Trusted by <em>Businesses</em></h2>
+      <p>Businesses across industries trust us to drive growth and results.</p>
+    </div>
+  </div>
+  <div class="clients-wrap">
+    <div class="clients-track">
+      <div class="client-logo"><div class="client-popup">🎓 Education · 650+ leads delivered</div><div class="client-icon" style="background:linear-gradient(135deg,#667eea,#764ba2)"><i class="fa-solid fa-graduation-cap"></i></div><span>EduNova</span><small>Education</small></div>
+      <div class="client-logo"><div class="client-popup">🏥 Healthcare · Local SEO #1</div><div class="client-icon" style="background:linear-gradient(135deg,#f093fb,#f5576c)"><i class="fa-solid fa-heart-pulse"></i></div><span>HealthFirst</span><small>Healthcare</small></div>
+      <div class="client-logo"><div class="client-popup">💰 FinTech · 3× conversion lift</div><div class="client-icon" style="background:linear-gradient(135deg,#4facfe,#00f2fe)"><i class="fa-solid fa-chart-line"></i></div><span>FinEdge</span><small>FinTech</small></div>
+      <div class="client-logo"><div class="client-popup">🛒 E-Com · 4.5× ROAS achieved</div><div class="client-icon" style="background:linear-gradient(135deg,#43e97b,#38f9d7)"><i class="fa-solid fa-cart-shopping"></i></div><span>ShopBolt</span><small>E-Commerce</small></div>
+      <div class="client-logo"><div class="client-popup">🏢 Real Estate · 200+ property leads</div><div class="client-icon" style="background:linear-gradient(135deg,#f97316,#fb923c)"><i class="fa-solid fa-building"></i></div><span>PropVista</span><small>Real Estate</small></div>
+      <div class="client-logo"><div class="client-popup">☁️ SaaS · 60% churn reduction</div><div class="client-icon" style="background:linear-gradient(135deg,#0ea5e9,#6366f1)"><i class="fa-solid fa-server"></i></div><span>CloudStack</span><small>SaaS</small></div>
+      <div class="client-logo"><div class="client-popup">🎓 Education · 650+ leads delivered</div><div class="client-icon" style="background:linear-gradient(135deg,#667eea,#764ba2)"><i class="fa-solid fa-graduation-cap"></i></div><span>EduNova</span><small>Education</small></div>
+      <div class="client-logo"><div class="client-popup">🏥 Healthcare · Local SEO #1</div><div class="client-icon" style="background:linear-gradient(135deg,#f093fb,#f5576c)"><i class="fa-solid fa-heart-pulse"></i></div><span>HealthFirst</span><small>Healthcare</small></div>
+      <div class="client-logo"><div class="client-popup">💰 FinTech · 3× conversion lift</div><div class="client-icon" style="background:linear-gradient(135deg,#4facfe,#00f2fe)"><i class="fa-solid fa-chart-line"></i></div><span>FinEdge</span><small>FinTech</small></div>
+      <div class="client-logo"><div class="client-popup">🛒 E-Com · 4.5× ROAS achieved</div><div class="client-icon" style="background:linear-gradient(135deg,#43e97b,#38f9d7)"><i class="fa-solid fa-cart-shopping"></i></div><span>ShopBolt</span><small>E-Commerce</small></div>
+      <div class="client-logo"><div class="client-popup">🏢 Real Estate · 200+ property leads</div><div class="client-icon" style="background:linear-gradient(135deg,#f97316,#fb923c)"><i class="fa-solid fa-building"></i></div><span>PropVista</span><small>Real Estate</small></div>
+      <div class="client-logo"><div class="client-popup">☁️ SaaS · 60% churn reduction</div><div class="client-icon" style="background:linear-gradient(135deg,#0ea5e9,#6366f1)"><i class="fa-solid fa-server"></i></div><span>CloudStack</span><small>SaaS</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section class="section" id="industries">
+  <div class="container">
+    <div class="sec-title reveal">
+      <div class="eyebrow"><i class="fa-solid fa-industry" style="font-size:.75rem"></i> Industries</div>
+      <h2>Industries We <em>Serve</em></h2>
+      <p>Hover over each industry to learn how we help you grow.</p>
+    </div>
+    <div class="ind-grid">
+      <div class="ind-card reveal" style="transition-delay:.05s"><div class="ind-bg" style="background-image:url('https://images.pexels.com/photos/5632399/pexels-photo-5632399.jpeg?auto=compress&cs=tinysrgb&w=600')"></div><div class="ind-base"><i class="fa-solid fa-cart-shopping"></i><h4>E-Commerce & Retail</h4></div><div class="ind-hover"><h4>E-Commerce & Retail</h4><p>High-ROI ad campaigns, optimized product pages, and automated cart-recovery flows.</p><span class="ind-tag">Performance Ads · SEO · CRO</span></div><button class="ind-lock-btn" title="Pin this card"><i class="fa-solid fa-thumbtack"></i></button></div>
+      <div class="ind-card reveal" style="transition-delay:.1s"><div class="ind-bg" style="background-image:url('https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=600')"></div><div class="ind-base"><i class="fa-solid fa-graduation-cap"></i><h4>Education & EdTech</h4></div><div class="ind-hover"><h4>Education & EdTech</h4><p>Admissions lead gen and course promotion to enroll qualified students at scale.</p><span class="ind-tag">Lead Gen · Meta Ads · Funnels</span></div><button class="ind-lock-btn" title="Pin this card"><i class="fa-solid fa-thumbtack"></i></button></div>
+      <div class="ind-card reveal" style="transition-delay:.15s"><div class="ind-bg" style="background-image:url('https://images.pexels.com/photos/4386467/pexels-photo-4386467.jpeg?auto=compress&cs=tinysrgb&w=600')"></div><div class="ind-base"><i class="fa-solid fa-heart-pulse"></i><h4>Healthcare & Wellness</h4></div><div class="ind-hover"><h4>Healthcare & Wellness</h4><p>Local SEO and appointment-booking automation that brings patients consistently.</p><span class="ind-tag">Local SEO · Automation · Branding</span></div><button class="ind-lock-btn" title="Pin this card"><i class="fa-solid fa-thumbtack"></i></button></div>
+      <div class="ind-card reveal" style="transition-delay:.2s"><div class="ind-bg" style="background-image:url('https://images.pexels.com/photos/1370704/pexels-photo-1370704.jpeg?auto=compress&cs=tinysrgb&w=600')"></div><div class="ind-base"><i class="fa-solid fa-building"></i><h4>Real Estate</h4></div><div class="ind-hover"><h4>Real Estate</h4><p>Property leads through geo-ads, virtual tour integrations, and CRM automation.</p><span class="ind-tag">Geo Ads · Lead Gen · CRM</span></div><button class="ind-lock-btn" title="Pin this card"><i class="fa-solid fa-thumbtack"></i></button></div>
+      <div class="ind-card reveal" style="transition-delay:.25s"><div class="ind-bg" style="background-image:url('https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg?auto=compress&cs=tinysrgb&w=600')"></div><div class="ind-base"><i class="fa-solid fa-server"></i><h4>SaaS & Technology</h4></div><div class="ind-hover"><h4>SaaS & Technology</h4><p>Growth strategies engineered to reduce churn and maximize monthly recurring revenue.</p><span class="ind-tag">Growth Hacking · Content · PPC</span></div><button class="ind-lock-btn" title="Pin this card"><i class="fa-solid fa-thumbtack"></i></button></div>
+      <div class="ind-card reveal" style="transition-delay:.3s"><div class="ind-bg" style="background-image:url('https://images.pexels.com/photos/6801648/pexels-photo-6801648.jpeg?auto=compress&cs=tinysrgb&w=600')"></div><div class="ind-base"><i class="fa-solid fa-chart-line"></i><h4>Finance & FinTech</h4></div><div class="ind-hover"><h4>Finance & FinTech</h4><p>Compliance-aware campaigns that convert high-intent financial service prospects.</p><span class="ind-tag">Compliance Ads · Branding · SEO</span></div><button class="ind-lock-btn" title="Pin this card"><i class="fa-solid fa-thumbtack"></i></button></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section alt" id="contact">
+  <div class="container">
+    <div class="sec-title reveal">
+      <div class="eyebrow"><i class="fa-solid fa-paper-plane" style="font-size:.75rem"></i> Get In Touch</div>
+      <h2>Ready to <em>Scale?</em></h2>
+      <p>Let's start the conversation. We're here to help your business grow.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal-left">
+        <h3>Visit or Reach Us</h3>
+        <p>Drop us a message, give us a call, or visit our office in Coimbatore.</p>
+        <div class="cinfo-item"><div class="cinfo-icon"><i class="fa-solid fa-location-dot"></i></div><div><strong>Office Address</strong><span>3/29, 3rd floor, Jaya Nagar, Vadavalli, Coimbatore – 641041</span></div></div>
+        <div class="cinfo-item"><div class="cinfo-icon"><i class="fa-solid fa-phone"></i></div><div><strong>Phone</strong><span>+91 93427 21163</span></div></div>
+        <div class="cinfo-item"><div class="cinfo-icon"><i class="fa-solid fa-envelope"></i></div><div><strong>Email</strong><span>admin@phoenixxit.com</span></div></div>
+        <div class="cinfo-item"><div class="cinfo-icon"><i class="fa-solid fa-clock"></i></div><div><strong>Working Hours</strong><span>Mon – Sat: 9:00 AM – 7:00 PM</span></div></div>
+        <div class="map-wrap"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.1333849378416!2d76.9059176!3d11.028617800000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x272baca53d7c620d%3A0x420ff43a22f6eadf!2sPhoenixx%20IT!5e0!3m2!1sen!2sin!4v1780996695172!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+      </div>
+      <div class="contact-form reveal">
+        <div class="form-progress">
+          <div class="form-step-dot active" id="fdot1">1</div>
+          <div class="form-step-line" id="fline1"></div>
+          <div class="form-step-dot" id="fdot2">2</div>
+          <div class="form-step-line" id="fline2"></div>
+          <div class="form-step-dot" id="fdot3">3</div>
+        </div>
+        <form id="contact-form">
+          <div class="form-group"><label>Full Name</label><input type="text" placeholder="John Doe" required></div>
+          <div class="form-group"><label>Email Address</label><input type="email" placeholder="john@company.com" required></div>
+          <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+91 93427 21163"></div>
+          <div class="form-group"><label>Service Interested In</label><select><option value="" disabled selected>Select a service...</option><option>Performance Marketing</option><option>Digital Marketing</option><option>Website Design & Development</option><option>App Development</option><option>Automation</option><option>Branding & PR</option><option>Design & Video Editing</option><option>Lead Generation</option></select></div>
+          <div class="form-group"><label>Message</label><textarea placeholder="Tell us about your project goals..." required></textarea></div>
+          <button type="submit" class="btn btn-primary ripple-container" style="width:100%;justify-content:center;font-size:.95rem"><i class="fa-solid fa-paper-plane" style="margin-right:8px"></i>Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="marquee-wrap">
+      <div class="marquee-track">
+        <span class="marquee-text">BUILDING THE FUTURE • </span><span class="marquee-text">BUILDING THE FUTURE • </span><span class="marquee-text">BUILDING THE FUTURE • </span><span class="marquee-text">BUILDING THE FUTURE • </span><span class="marquee-text">BUILDING THE FUTURE • </span><span class="marquee-text">BUILDING THE FUTURE • </span><span class="marquee-text">BUILDING THE FUTURE • </span><span class="marquee-text">BUILDING THE FUTURE • </span>
+      </div>
+    </div>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo-text">
+          <img src="images/logo.svg.svg" alt="Phoenixx IT logo" class="footer-logo-img">
+        </div>
+        <p>Transforming businesses through cutting-edge digital technology, creative design, and data-driven marketing strategies.</p>
+        <div class="socials">
+          <a href="#" class="social-btn fb"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="social-btn ig"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-btn li"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="#services">Performance Marketing</a></li><li><a href="#services">Digital Marketing</a></li><li><a href="#services">Web Development</a></li><li><a href="#services">App Development</a></li><li><a href="#services">Automation</a></li><li><a href="#services">Branding & PR</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="#about">About Us</a></li><li><a href="#portfolio">Success Stories</a></li><li><a href="#clients">Our Clients</a></li><li><a href="#industries">Industries</a></li><li><a href="#contact">Contact Us</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 Phoenixx IT. All Rights Reserved. | Coimbatore, Tamil Nadu, India</p></div>
+  </div>
+</footer>
+
+<div class="chat-widget" id="chat-widget">
+  <button class="chat-toggle" aria-label="Open chat">
+    <svg class="chat-robot-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="chatFaceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#43d9b9"/>
+          <stop offset="100%" stop-color="#3c9cff"/>
+        </linearGradient>
+      </defs>
+      <g>
+        <path d="M28 58c0-18 14-32 32-32s32 14 32 32v10c0 8.8-7.2 16-16 16H44c-8.8 0-16-7.2-16-16V58Z" fill="url(#chatFaceGrad)"/>
+        <path d="M36 32c0-8 6.5-14.5 14.5-14.5h11c8 0 14.5 6.5 14.5 14.5v6H36v-6Z" fill="url(#chatFaceGrad)" opacity=".95"/>
+        <rect x="34" y="46" width="12" height="14" rx="4" fill="#fff" opacity=".9"/>
+        <rect x="56" y="46" width="12" height="14" rx="4" fill="#fff" opacity=".9"/>
+        <circle cx="40" cy="52" r="3" fill="#21486d"/>
+        <circle cx="62" cy="52" r="3" fill="#21486d"/>
+        <path d="M42 66c4 4 12 4 16 0" stroke="#21486d" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M20 40h26c4 0 8 3 8 7v2" fill="none" stroke="#16b199" stroke-width="4" stroke-linecap="round"/>
+        <path d="M22 42h20c3 0 5 2 5 5v1" fill="none" stroke="#0da58c" stroke-width="4" stroke-linecap="round"/>
+        <path d="M72 24h24c6 0 10 4 10 10v14c0 6-4 10-10 10H78" fill="none" stroke="#7fe6d3" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="76" cy="32" r="4" fill="#0c6c6a"/>
+        <path d="M90 32h8" stroke="#0c6c6a" stroke-width="4" stroke-linecap="round"/>
+      </g>
+    </svg>
+  </button>
+  <div class="chat-panel" id="chat-panel">
+    <div class="chat-header">
+      <div>
+        <div class="chat-title">Phoenixx Chat</div>
+        <div class="chat-subtitle">Ask anything about our services</div>
+      </div>
+    </div>
+    <div class="chat-body" id="chat-body">
+      <div class="chat-message bot"><div class="chat-bubble">Hi there, welcome to Phoenixx IT. How can I help you today?</div></div>
+    </div>
+    <form class="chat-input-wrap chat-form" id="chat-form">
+      <input type="text" class="chat-input" id="chat-input" placeholder="Type your question..." autocomplete="off">
+      <button type="submit" class="chat-send"><i class="fa-solid fa-paper-plane"></i></button>
+    </form>
+  </div>
+</div>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ── LOADING ── */
+(function(){
+  const words=['Build','Grow','Scale','Create','Dominate'];
+  let wi=0,count=0,start=null;
+  const wordEl=document.getElementById('ld-word');
+  const ctrEl=document.getElementById('ld-counter');
+  const barEl=document.getElementById('ld-bar');
+  const loadEl=document.getElementById('loading');
+  setInterval(()=>{
+    wi=(wi+1)%words.length;
+    wordEl.style.opacity='0';wordEl.style.transform='translateY(20px)';
+    setTimeout(()=>{wordEl.textContent=words[wi];wordEl.style.transition='all .25s';wordEl.style.opacity='1';wordEl.style.transform='translateY(0)'},130);
+  },650);
+  function step(ts){
+    if(!start)start=ts;
+    count=Math.min(100,Math.round(((ts-start)/2200)*100));
+    ctrEl.textContent=String(count).padStart(3,'0');
+    barEl.style.transform='scaleX('+count/100+')';
+    if(count<100)requestAnimationFrame(step);
+    else setTimeout(()=>{loadEl.classList.add('done');setTimeout(()=>{loadEl.style.display='none';initAll()},650)},350);
+  }
+  requestAnimationFrame(step);
+})();
+
+/* ── CUSTOM CURSOR ── */
+const cur=document.getElementById('cursor');
+const ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+});
+(function ringLoop(){
+  rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(ringLoop);
+})();
+document.querySelectorAll('a,button,.tilt,.pill,.client-logo,.ind-card,.cinfo-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
+});
+document.addEventListener('mousedown',()=>document.body.classList.add('cursor-click'));
+document.addEventListener('mouseup',()=>document.body.classList.remove('cursor-click'));
+
+const chatWidget=document.getElementById('chat-widget');
+const chatPanel=document.getElementById('chat-panel');
+const chatBody=document.getElementById('chat-body');
+const chatForm=document.getElementById('chat-form');
+const chatInput=document.getElementById('chat-input');
+const chatToggle=chatWidget.querySelector('.chat-toggle');
+
+chatToggle.addEventListener('click',()=>{
+  chatWidget.classList.toggle('open');
+  if(chatWidget.classList.contains('open')) chatInput.focus();
+});
+
+chatForm.addEventListener('submit',e=>{e.preventDefault(); sendChatMessage();});
+
+function addChatMessage(text,sender){
+  const msg=document.createElement('div');
+  msg.className='chat-message '+sender;
+  const bubble=document.createElement('div');
+  bubble.className='chat-bubble';
+  bubble.textContent=text;
+  msg.appendChild(bubble);
+  chatBody.appendChild(msg);
+  chatBody.scrollTop=chatBody.scrollHeight;
+}
+
+function getBotResponse(input){
+  const text=input.trim().toLowerCase();
+  if(!text) return 'Please type your question so I can help.';
+  if(/hello|hi|hey|good morning|good afternoon|good evening/.test(text)) return 'Hello! I’m Phoenixx assistant. Ask me about web design, marketing, automation or growth strategy.';
+  if(/website|web|site/.test(text)) return 'We build fast, responsive websites with conversion-focused design and easy CMS updates.';
+  if(/marketing|ads|seo|campaign/.test(text)) return 'Our marketing services include SEO, Google Ads, Meta Ads, social media growth, and performance optimization.';
+  if(/automation|crm|zapier|integrat/.test(text)) return 'We automate tasks, CRM flows and data syncs so your team can focus on growth instead of manual work.';
+  if(/pricing|cost|quote/.test(text)) return 'We price projects based on scope. Share your goals, and we’ll recommend the best package for you.';
+  if(/contact|call|meet|demo/.test(text)) return 'Great! Share your details here and we’ll connect you with an expert for a free consultation.';
+  return 'Thanks for your question! I’ll pass it along to our team and someone will get in touch shortly.';
+}
+
+function sendChatMessage(){
+  const value=chatInput.value.trim();
+  if(!value) return;
+  addChatMessage(value,'user');
+  chatInput.value='';
+  setTimeout(()=> addChatMessage(getBotResponse(value),'bot'),300);
+}
+
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    chatWidget.classList.add('open');
+    chatInput.focus();
+  },500);
+});
+
+/* ── HERO NETWORK CANVAS ── */
+(function(){
+  const net=document.getElementById('hero-net');
+  const ctx=net.getContext('2d');
+  let W,H,mouse={x:-9999,y:-9999},nodes=[];
+  function resize(){W=net.width=net.offsetWidth;H=net.height=net.offsetHeight||window.innerHeight}
+  resize();window.addEventListener('resize',resize);
+  function mkNode(){return{x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:Math.random()*2+1}}
+  nodes=Array.from({length:110},mkNode);
+  net.addEventListener('mousemove',e=>{const r=net.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top});
+  net.addEventListener('mouseleave',()=>{mouse.x=-9999;mouse.y=-9999});
+  net.addEventListener('click',e=>{
+    const r=net.getBoundingClientRect();const mx=e.clientX-r.left,my=e.clientY-r.top;
+    for(let i=0;i<8;i++)nodes.push({x:mx,y:my,vx:(Math.random()-.5)*3,vy:(Math.random()-.5)*3,r:Math.random()*2+1,life:1});
+  });
+  const CONN=140,MCONN=200;
+  (function loop(){
+    ctx.clearRect(0,0,W,H);
+    /* draw connections */
+    for(let i=0;i<nodes.length;i++){
+      for(let j=i+1;j<nodes.length;j++){
+        const dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y;
+        const d=Math.sqrt(dx*dx+dy*dy);
+        if(d<CONN){
+          const a=(1-d/CONN)*.5;
+          ctx.beginPath();ctx.moveTo(nodes[i].x,nodes[i].y);ctx.lineTo(nodes[j].x,nodes[j].y);
+          ctx.strokeStyle=`rgba(255,107,1,${a})`;ctx.lineWidth=.8;ctx.stroke();
+        }
+      }
+      /* mouse repel/connect */
+      const mdx=nodes[i].x-mouse.x,mdy=nodes[i].y-mouse.y;
+      const md=Math.sqrt(mdx*mdx+mdy*mdy);
+      if(md<MCONN){
+        const ma=(1-md/MCONN)*.9;
+        ctx.beginPath();ctx.moveTo(nodes[i].x,nodes[i].y);ctx.lineTo(mouse.x,mouse.y);
+        ctx.strokeStyle=`rgba(255,147,64,${ma})`;ctx.lineWidth=1.2;ctx.stroke();
+        const force=(.5-md/MCONN)*.015;nodes[i].vx+=mdx/md*force;nodes[i].vy+=mdy/md*force;
+      }
+    }
+    /* draw nodes */
+    nodes.forEach((n,i)=>{
+      ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+      const pulse=.5+.5*Math.sin(Date.now()*.001+i);
+      ctx.fillStyle=`rgba(255,${90+Math.floor(pulse*60)},1,${.6+pulse*.3})`;ctx.fill();
+      n.x+=n.vx;n.y+=n.vy;
+      if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;
+      if(n.life!==undefined){n.life-=.015;if(n.life<=0)nodes.splice(i,1)}
+    });
+    /* mouse dot */
+    if(mouse.x>0){
+      ctx.beginPath();ctx.arc(mouse.x,mouse.y,6,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,147,64,.9)';ctx.fill();
+      ctx.beginPath();ctx.arc(mouse.x,mouse.y,20,0,Math.PI*2);
+      ctx.strokeStyle='rgba(255,107,1,.3)';ctx.lineWidth=1.5;ctx.stroke();
+    }
+    requestAnimationFrame(loop);
+  })();
+})();
+
+/* ── HERO PARTICLE CANVAS (floating sparks) ── */
+const hc=document.getElementById('hero-canvas');
+const hctx=hc.getContext('2d');
+function rsz(){hc.width=hc.offsetWidth;hc.height=hc.offsetHeight||window.innerHeight}
+rsz();window.addEventListener('resize',rsz);
+const pts=Array.from({length:70},()=>mkPt());
+function mkPt(){return{x:Math.random()*hc.width,y:Math.random()*hc.height,r:Math.random()*2.5+.4,s:Math.random()*1.2+.3,d:(Math.random()-.5)*.5,o:Math.random()*.5+.1,c:Math.random()>.5?'#ff6b01':'#ff9340'}}
+(function loop(){
+  hctx.clearRect(0,0,hc.width,hc.height);
+  pts.forEach((p,i)=>{
+    hctx.beginPath();hctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    hctx.fillStyle=p.c;hctx.globalAlpha=p.o;hctx.fill();
+    p.y-=p.s;p.x+=p.d;p.o-=.0012;
+    if(p.y<-10||p.o<=0)pts[i]=mkPt();
+  });
+  hctx.globalAlpha=1;requestAnimationFrame(loop);
+})();
+
+/* ── NAV SCROLL ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav-pill').classList.toggle('scrolled',window.scrollY>80);
+});
+
+/* ── MOBILE MENU ── */
+const ham=document.getElementById('hamburger');
+const mob=document.getElementById('mobile-menu');
+ham.addEventListener('click',()=>{ham.classList.toggle('active');mob.classList.toggle('open')});
+mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('active');mob.classList.remove('open')}));
+
+/* ── TILT 3D ── */
+function initTilt(){
+  document.querySelectorAll('.tilt').forEach(el=>{
+    el.addEventListener('mousemove',e=>{
+      const r=el.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-.5;
+      const y=(e.clientY-r.top)/r.height-.5;
+      el.style.transform=`perspective(600px) rotateY(${x*14}deg) rotateX(${-y*14}deg) scale(1.03)`;
+      const glow=el.querySelector('.glow,.sc-glow');
+      if(glow){glow.style.left=(e.clientX-r.left)+'px';glow.style.top=(e.clientY-r.top)+'px'}
+    });
+    el.addEventListener('mouseleave',()=>{
+      el.style.transform='perspective(600px) rotateY(0deg) rotateX(0deg) scale(1)';
+    });
+    el.addEventListener('mouseenter',()=>{
+      const glow=el.querySelector('.glow,.sc-glow');
+      if(glow)glow.style.opacity='1';
+    });
+  });
+}
+
+/* ── SERVICE CARD GLOW TRACKING ── */
+function initServiceGlow(){
+  document.querySelectorAll('.service-card').forEach(card=>{
+    card.addEventListener('mousemove',e=>{
+      const r=card.getBoundingClientRect();
+      const glow=card.querySelector('.sc-glow');
+      if(glow){glow.style.left=(e.clientX-r.left)+'px';glow.style.top=(e.clientY-r.top)+'px';glow.style.opacity='1'}
+    });
+    card.addEventListener('mouseleave',()=>{
+      const glow=card.querySelector('.sc-glow');
+      if(glow)glow.style.opacity='0';
+    });
+  });
+}
+
+/* ── RIPPLE EFFECT ── */
+function initRipple(){
+  document.querySelectorAll('.ripple-container').forEach(el=>{
+    el.addEventListener('click',e=>{
+      const r=el.getBoundingClientRect();
+      const size=Math.max(r.width,r.height)*2;
+      const rip=document.createElement('span');
+      rip.className='ripple';
+      rip.style.cssText=`width:${size}px;height:${size}px;left:${e.clientX-r.left-size/2}px;top:${e.clientY-r.top-size/2}px`;
+      el.appendChild(rip);
+      setTimeout(()=>rip.remove(),700);
+    });
+  });
+}
+
+/* ── COUNTER ── */
+function doCount(el,target){
+  const s=performance.now();
+  const dur=1800;
+  (function tick(n){
+    const p=Math.min((n-s)/dur,1);
+    el.textContent=Math.floor((1-Math.pow(1-p,3))*target);
+    if(p<1)requestAnimationFrame(tick);
+    else el.textContent=target;
+  })(performance.now());
+}
+
+/* ── INTERSECTION OBSERVER ── */
+function initObserver(){
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting)return;
+      e.target.classList.add('vis');
+      e.target.querySelectorAll('.count').forEach(c=>doCount(c,+c.dataset.target));
+      const rf=e.target.querySelector('#ring-fill');
+      if(rf)rf.style.strokeDashoffset='13';
+      io.unobserve(e.target);
+    });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal,.reveal-left,.reveal-scale').forEach(el=>io.observe(el));
+}
+
+/* ── GSAP SECTION REVEALS ── */
+function initGSAP(){
+  gsap.utils.toArray('.service-card').forEach((c,i)=>{
+    gsap.fromTo(c,{opacity:0,y:35},{opacity:1,y:0,duration:.7,delay:i*.06,ease:'power3.out',scrollTrigger:{trigger:c,start:'top 90%',once:true}});
+  });
+  gsap.utils.toArray('.success-card').forEach((c,i)=>{
+    gsap.fromTo(c,{opacity:0,y:25},{opacity:1,y:0,duration:.65,delay:i*.1,ease:'power3.out',scrollTrigger:{trigger:c,start:'top 90%',once:true}});
+  });
+  gsap.utils.toArray('.ind-card').forEach((c,i)=>{
+    gsap.fromTo(c,{opacity:0,y:30},{opacity:1,y:0,duration:.7,delay:i*.08,ease:'power3.out',scrollTrigger:{trigger:c,start:'top 90%',once:true}});
+  });
+  gsap.utils.toArray('.client-logo').forEach((c,i)=>{
+    gsap.fromTo(c,{opacity:0,y:15},{opacity:1,y:0,duration:.5,delay:i*.04,ease:'power2.out',scrollTrigger:{trigger:c,start:'top 95%',once:true}});
+  });
+  /* Stagger footer links */
+  gsap.utils.toArray('.footer-col li').forEach((li,i)=>{
+    gsap.fromTo(li,{opacity:0,x:-12},{opacity:1,x:0,duration:.4,delay:i*.04,ease:'power2.out',scrollTrigger:{trigger:li,start:'top 95%',once:true}});
+  });
+}
+
+/* ── MAGNETIC BUTTONS ── */
+function initMagnetic(){
+  document.querySelectorAll('.btn-primary,.nav-cta').forEach(btn=>{
+    btn.addEventListener('mousemove',e=>{
+      const r=btn.getBoundingClientRect();
+      const x=(e.clientX-r.left-r.width/2)*.25;
+      const y=(e.clientY-r.top-r.height/2)*.25;
+      btn.style.transform=`translate(${x}px,${y}px) scale(1.04)`;
+    });
+    btn.addEventListener('mouseleave',()=>{
+      btn.style.transform='translate(0,0) scale(1)';
+    });
+  });
+}
+
+/* ── PARALLAX HERO TEXT ── */
+function initParallax(){
+  window.addEventListener('scroll',()=>{
+    const y=window.scrollY;
+    const hc2=document.querySelector('.hero-content');
+    if(hc2)hc2.style.transform=`translateY(${y*.35}px)`;
+  });
+}
+
+/* ── INTERACTIVE: SERVICE CARD FLIP ── */
+document.querySelectorAll('.service-card-wrap').forEach(wrap=>{
+  wrap.addEventListener('click',e=>{
+    if(e.target.closest('.ripple-container')){}
+    wrap.classList.toggle('flipped');
+  });
+});
+
+/* ── INTERACTIVE: SUCCESS CARD EXPAND ── */
+document.querySelectorAll('.success-card').forEach(card=>{
+  card.addEventListener('click',()=>{
+    const wasExpanded=card.classList.contains('expanded');
+    document.querySelectorAll('.success-card').forEach(c=>c.classList.remove('expanded'));
+    if(!wasExpanded){
+      card.classList.add('expanded');
+      card.querySelector('.expand-hint').textContent='↑ Click to collapse';
+    } else {
+      card.querySelector('.expand-hint').textContent='↓ Click to see details';
+    }
+  });
+});
+
+/* ── INTERACTIVE: STAT CARD PULSE ON CLICK ── */
+document.querySelectorAll('.stat-card').forEach(card=>{
+  const pulse=document.createElement('div');pulse.className='stat-pulse';card.appendChild(pulse);
+  card.addEventListener('click',()=>{
+    card.classList.remove('pulsed');void card.offsetWidth;card.classList.add('pulsed');
+  });
+});
+
+/* ── INTERACTIVE: INDUSTRY CARD PIN BUTTON ── */
+document.querySelectorAll('.ind-lock-btn').forEach(btn=>{
+  btn.addEventListener('click',e=>{
+    e.stopPropagation();
+    const card=btn.closest('.ind-card');
+    card.classList.toggle('locked');
+  });
+});
+
+/* ── INTERACTIVE: CLIENT LOGO CLICK SELECT ── */
+document.querySelectorAll('.client-logo').forEach(logo=>{
+  logo.addEventListener('click',()=>{
+    document.querySelectorAll('.client-logo').forEach(l=>l.classList.remove('selected'));
+    logo.classList.toggle('selected');
+  });
+});
+
+/* ── INTERACTIVE: FORM STEP PROGRESS ── */
+(function(){
+  const form=document.getElementById('contact-form');
+  if(!form)return;
+  const inputs=form.querySelectorAll('input,textarea,select');
+  function updateProgress(){
+    let filled=0;
+    inputs.forEach(i=>{if(i.value.trim())filled++});
+    const pct=filled/inputs.length;
+    const d1=document.getElementById('fdot1'),d2=document.getElementById('fdot2'),d3=document.getElementById('fdot3');
+    const l1=document.getElementById('fline1'),l2=document.getElementById('fline2');
+    if(!d1)return;
+    d1.className='form-step-dot done';
+    if(pct>=.35){d2.className='form-step-dot done';l1.className='form-step-line done';}
+    else{d2.className='form-step-dot active';l1.className='form-step-line';}
+    if(pct>=.75){d3.className='form-step-dot done';l2.className='form-step-line done';}
+    else if(pct>=.35){d3.className='form-step-dot active';l2.className='form-step-line';}
+    else{d3.className='form-step-dot';l2.className='form-step-line';}
+  }
+  inputs.forEach(i=>i.addEventListener('input',updateProgress));
+})();
+function initAll(){
+  initTilt();
+  initServiceGlow();
+  initRipple();
+  initObserver();
+  initGSAP();
+  initMagnetic();
+  initParallax();
+}
+</script>
+</body>
+</html>
