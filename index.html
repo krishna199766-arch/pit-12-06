@@ -267,10 +267,13 @@ footer{background:var(--sec);padding:4rem 0 2rem;border-top:1px solid rgba(255,1
 @keyframes robotBlink{0%,90%{opacity:1}94%{opacity:0}100%{opacity:1}}
 @keyframes floatY{0%{transform:translateY(0)}50%{transform:translateY(-4px)}100%{transform:translateY(0)}}
 @media(max-width:520px){
-  .chat-widget{right:14px;left:auto;bottom:14px}
+  .chat-widget{right:14px;left:auto;bottom:14px;z-index:10005;display:flex;align-items:flex-end;pointer-events:auto;}
   .chat-toggle{width:58px;height:58px;padding:8px}
   .chat-robot-svg{width:78%}
-  .chat-panel{position:fixed;bottom:76px;right:6px;left:6px;width:auto;max-width:none;min-width:auto;border-radius:20px;}
+  .chat-panel{position:fixed;bottom:76px;right:6px;left:6px;width:calc(100vw - 24px);max-width:none;min-width:auto;border-radius:20px;}
+  .chat-widget{opacity:1;visibility:visible;}
+  .chat-toggle{display:flex;}
+  .chat-panel{display:block;}
 }
 @keyframes logoBounce{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-4px) scale(1.045)}}
 @keyframes logoGlow{0%,100%{filter:drop-shadow(0 0 0 rgba(255,255,255,0));box-shadow:0 10px 30px rgba(255,107,1,.28)}40%{filter:drop-shadow(0 0 20px rgba(255,182,95,.55));box-shadow:0 14px 42px rgba(255,107,1,.48);}}
@@ -315,7 +318,7 @@ footer{background:var(--sec);padding:4rem 0 2rem;border-top:1px solid rgba(255,1
   .stats-grid,.services-grid,.success-grid{gap:1rem}
   .client-logo{min-width:140px;padding:16px 20px}
   .clients-wrap{padding:1rem 0}
-  .clients-track{animation:none;flex-wrap:wrap;justify-content:center}
+  .clients-track{animation:scrollLeft 24s linear infinite;flex-wrap:nowrap;justify-content:flex-start}
   .clients-wrap::before,.clients-wrap::after{display:none}
   .ind-card{height:220px}
   .contact-info,.contact-form{width:100%}
