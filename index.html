@@ -266,11 +266,12 @@ footer{background:var(--sec);padding:4rem 0 2rem;border-top:1px solid rgba(255,1
 .chat-robot-svg .robot-eye{animation:robotBlink 4s steps(1,end) infinite}
 @keyframes robotBlink{0%,90%{opacity:1}94%{opacity:0}100%{opacity:1}}
 @keyframes floatY{0%{transform:translateY(0)}50%{transform:translateY(-4px)}100%{transform:translateY(0)}}
+.chat-panel{position:fixed;bottom:92px;right:18px;left:auto;width:340px;max-width:calc(100vw - 36px);background:rgba(18,18,18,.96);border:1px solid rgba(255,255,255,.12);border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.45);overflow:hidden;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .25s ease,transform .25s ease,visibility .25s ease;box-sizing:border-box}
 @media(max-width:520px){
   .chat-widget{right:14px;left:auto;bottom:14px;z-index:10005;display:flex;align-items:flex-end;pointer-events:auto;}
   .chat-toggle{width:58px;height:58px;padding:8px}
   .chat-robot-svg{width:78%}
-  .chat-panel{position:fixed;bottom:76px;right:6px;left:6px;width:calc(100vw - 24px);max-width:none;min-width:auto;border-radius:20px;}
+  .chat-panel{position:fixed;bottom:76px;right:10px;left:10px;width:auto;max-width:none;min-width:auto;border-radius:20px;}
   .chat-widget{opacity:1;visibility:visible;}
   .chat-toggle{display:flex;}
   .chat-panel{display:block;}
@@ -278,7 +279,6 @@ footer{background:var(--sec);padding:4rem 0 2rem;border-top:1px solid rgba(255,1
 @keyframes logoBounce{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-4px) scale(1.045)}}
 @keyframes logoGlow{0%,100%{filter:drop-shadow(0 0 0 rgba(255,255,255,0));box-shadow:0 10px 30px rgba(255,107,1,.28)}40%{filter:drop-shadow(0 0 20px rgba(255,182,95,.55));box-shadow:0 14px 42px rgba(255,107,1,.48);}}
 @keyframes chatBubble{0%,78%{opacity:.95;transform:translateY(0)}80%{opacity:0;transform:translateY(-6px)}100%{opacity:0;transform:translateY(-6px)}}
-.chat-panel{position:absolute;bottom:88px;right:0;width:340px;max-width:calc(100vw - 32px);background:rgba(18,18,18,.96);border:1px solid rgba(255,255,255,.12);border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.45);overflow:hidden;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .25s ease,transform .25s ease,visibility .25s ease}
 .chat-widget.open .chat-panel{opacity:1;visibility:visible;transform:translateY(0)}
 .chat-header{padding:16px 16px 12px 16px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:.75rem}
 .chat-header .chat-title{font-size:1rem;font-weight:700;color:#fff;line-height:1.2}
