@@ -48,7 +48,8 @@ body.cursor-click #cursor{width:8px;height:8px;background:#fff}
 .nav-pill.scrolled{box-shadow:0 10px 48px rgba(0,0,0,.55)}
 .nav-logo-wrap{display:flex;align-items:center;gap:.8rem;cursor:pointer}
 .nav-logo-icon{width:auto;height:auto;background:transparent;border:none;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;transition:transform .3s,box-shadow .3s}
-.nav-logo-icon img{width:6.6rem;height:auto;object-fit:contain;display:block}
+.nav-logo-icon img{width:8rem;height:auto;object-fit:contain;display:block;background:transparent}
+.footer-logo-img{height:4rem;width:auto;display:block;background:transparent}
 .nav-logo-wrap > div{display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
 .nav-logo-wrap:hover .nav-logo-icon{transform:scale(1.06);box-shadow:0 0 24px rgba(255,255,255,.08)}
 .nav-brand{font-family:var(--font-display);font-style:italic;font-size:1.14rem;color:var(--white)}
@@ -152,7 +153,7 @@ body.cursor-click #cursor{width:8px;height:8px;background:#fff}
 
 /* ── SUCCESS ── */
 .success-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem}
-.success-card{background:var(--surface);padding:2rem;border-radius:20px;border:1px solid var(--border);text-align:center;position:relative;overflow:hidden;transition:all .3s;cursor:default}
+.success-card{background:var(--surface);padding:2rem;border-radius:20px;border:1px solid var(--border);position:relative;overflow:hidden;transition:all .3s;cursor:default}
 .success-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--or),var(--or2))}
 .success-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,107,1,.06),transparent);opacity:0;transition:opacity .3s}
 .success-card:hover::after{opacity:1}
@@ -249,10 +250,12 @@ footer{background:var(--sec);padding:4rem 0 2rem;border-top:1px solid rgba(255,1
 .footer-bottom{text-align:center;font-size:.82rem;color:#333}
 
 /* ── MARQUEE ── */
-.marquee-wrap{overflow:hidden;margin-bottom:3rem;mask-image:linear-gradient(90deg,transparent,black 10%,black 90%,transparent)}
-.marquee-track{display:flex;animation:marquee 40s linear infinite;width:max-content}
-.marquee-text{font-family:var(--font-display);font-style:italic;font-size:clamp(2rem,6vw,4rem);color:rgba(255,107,1,.07);white-space:nowrap;padding-right:2rem;transition:color .3s}
-.marquee-wrap:hover .marquee-text{color:rgba(255,107,1,.14)}
+.marquee-wrap{overflow:hidden;margin-bottom:3rem;mask-image:linear-gradient(90deg,transparent,black 10%,black 90%,transparent);padding:0 0.5rem}
+.marquee-track{display:flex;animation:marquee 30s linear infinite;width:max-content;gap:1rem;align-items:center}
+.marquee-item{display:inline-flex;align-items:center;gap:.75rem;padding:.8rem 1.2rem;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:#fff;font-family:var(--font-body);font-size:1rem;white-space:nowrap;transition:transform .3s,background .3s}
+.marquee-item i{font-size:1.15rem;color:var(--or)}
+.marquee-item span{font-weight:700;letter-spacing:.02em}
+.marquee-wrap:hover .marquee-item{background:rgba(255,255,255,.1)}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
 .chat-widget{position:fixed;bottom:18px;right:18px;z-index:9999;font-family:var(--font-body);} 
@@ -290,6 +293,57 @@ footer{background:var(--sec);padding:4rem 0 2rem;border-top:1px solid rgba(255,1
 .chat-send{width:44px;height:44px;border:none;border-radius:14px;background:linear-gradient(135deg,#ff6b01,#ff9340);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:transform .2s}
 .chat-send:hover{transform:scale(1.03)}
 @media(max-width:420px){.chat-panel{width:100%;right:0;border-radius:20px}}
+@media (max-width: 900px) {
+  #navbar{padding:.75rem 1rem 0}
+  .nav-pill{width:100%;justify-content:space-between;flex-wrap:wrap;gap:.75rem;padding:.8rem 1rem}
+  .nav-logo-wrap{gap:.65rem}
+  .nav-brand{font-size:1rem}
+  .nav-tagline{display:none}
+  .nav-divider{display:none}
+  .nav-link{padding:.75rem 1rem;font-size:.95rem}
+  .nav-cta{padding:.75rem 1rem;font-size:.95rem}
+  .mobile-menu{width:100%;max-width:none;right:-100%;border-left:none;border-top:1px solid rgba(255,255,255,.07);padding:1.5rem;justify-content:flex-start;align-items:flex-start}
+  .mobile-menu.open{right:0}
+  .mobile-menu a{width:100%;font-size:1rem;padding:.8rem 0;border-bottom:1px solid rgba(255,255,255,.08)}
+  .hero-content{padding:5rem 1rem 3rem}
+  .hero h1{font-size:clamp(2rem,8vw,2.8rem)}
+  .hero-sub{font-size:1rem;max-width:100%}
+  .hero-btns{gap:.75rem}
+  .hero-btns .btn{max-width:100%}
+  .section{padding:4rem 0}
+  .sec-title{padding:0 1rem}
+  .stats-grid,.services-grid,.success-grid{gap:1rem}
+  .client-logo{min-width:140px;padding:16px 20px}
+  .clients-wrap{padding:1rem 0}
+  .clients-track{animation:none;flex-wrap:wrap;justify-content:center}
+  .clients-wrap::before,.clients-wrap::after{display:none}
+  .ind-card{height:220px}
+  .contact-info,.contact-form{width:100%}
+  .footer-grid{grid-template-columns:1fr;gap:1.5rem}
+  .footer-bottom{text-align:left}
+}
+@media (max-width: 680px) {
+  .nav-pill{padding:.7rem .85rem}
+  .nav-link,.nav-cta{font-size:.95rem;padding:.75rem .9rem}
+  .hero-content{padding:4rem .9rem 2.5rem}
+  .hero h1{font-size:clamp(1.9rem,9vw,2.6rem)}
+  .hero-sub{font-size:.98rem}
+  .about-prose{font-size:.98rem}
+  .service-card{padding:1.75rem}
+  .service-icon{width:48px;height:48px;font-size:1.2rem}
+  .ind-card{height:200px}
+  .chat-toggle{width:52px;height:52px}
+  .chat-panel{width:calc(100vw - 20px);right:10px;left:10px}
+  .form-group input,.form-group textarea,.form-group select{font-size:.95rem}
+  .footer-logo-text{font-size:1.3rem}
+}
+@media (hover: none), (pointer: coarse) {
+  body{cursor:auto}
+  #cursor,#cursor-ring{display:none}
+  .chat-toggle:hover,.btn:hover,.nav-link:hover,.nav-cta:hover,.service-card:hover,.success-card:hover,.client-logo:hover,.ind-card:hover,.cinfo-item:hover{transform:none;box-shadow:none}
+  .mobile-menu{position:fixed;top:0;right:-100%;left:auto;width:100%;max-width:none;padding:1.25rem 1rem;justify-content:flex-start;align-items:flex-start}
+  .mobile-menu.open{right:0}
+}
 /* ── REVEAL ── */
 .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
 .reveal.vis{opacity:1;transform:translateY(0)}
@@ -306,7 +360,7 @@ footer{background:var(--sec);padding:4rem 0 2rem;border-top:1px solid rgba(255,1
 .ripple{position:absolute;border-radius:50%;background:rgba(255,107,1,.25);transform:scale(0);animation:rippleAnim .6s linear;pointer-events:none}
 @keyframes rippleAnim{to{transform:scale(4);opacity:0}}
 
-@media(max-width:900px){.about-grid,.contact-grid{grid-template-columns:1fr;gap:2rem}.ind-grid{grid-template-columns:repeat(2,1fr)}.footer-grid{grid-template-columns:1fr;gap:2rem}.stats-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:900px){.about-grid,.contact-grid{grid-template-columns:1fr;gap:2rem}.ind-grid{grid-template-columns:repeat(2,1fr)}.footer-grid{grid-template-columns:1fr;gap:2rem}.stats-grid{grid-template-columns:1fr}}
 @media(max-width:768px){.hamburger{display:flex}.desktop-nav{display:none}.ind-grid{grid-template-columns:1fr}.hero-btns{flex-direction:column;align-items:center}.hero-btns .btn{width:100%;max-width:280px;justify-content:center}}
 @media(max-width:500px){.stats-grid{grid-template-columns:1fr}.stat-card.wide{grid-column:span 1}}
 
@@ -314,6 +368,7 @@ footer{background:var(--sec);padding:4rem 0 2rem;border-top:1px solid rgba(255,1
 .service-card-wrap{perspective:900px;cursor:pointer}
 .service-card-inner{position:relative;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.4,0,.2,1)}
 .service-card-wrap.flipped .service-card-inner{transform:rotateY(180deg)}
+.service-card-wrap:hover .service-card-inner{transform:rotateY(180deg)}
 .service-card-front,.service-card-back{backface-visibility:hidden;-webkit-backface-visibility:hidden}
 .service-card-back{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,107,1,.18),rgba(255,147,64,.08));border-radius:20px;border:1px solid rgba(255,107,1,.5);transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;text-align:center;gap:10px}
 .service-card-back h3{font-size:1rem;font-weight:700;color:var(--or2);margin-bottom:.4rem}
@@ -489,31 +544,14 @@ footer{background:var(--sec);padding:4rem 0 2rem;border-top:1px solid rgba(255,1
       <p>Comprehensive digital solutions designed to accelerate your growth.</p>
     </div>
     <div class="services-grid">
-      <div class="service-card-wrap tilt reveal" style="transition-delay:.05s"><div class="service-card-inner"><div class="service-card service-card-front ripple-container"><div class="sc-glow"></div><div class="service-icon"><i class="fa-solid fa-mobile-screen-button"></i></div><h3>App Development</h3><p>Native Android, iOS, and cross-platform mobile apps built for performance and scale.</p><div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div><span class="service-card-hint">Click to flip ↻</span></div><div class="service-card-back"><i class="fa-solid fa-mobile-screen-button" style="font-size:2rem;color:var(--or)"></i><h3>App Development</h3><p>We build React Native, Flutter & native apps. Full lifecycle from wireframe to App Store launch.</p><span class="flip-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7rem"></i> iOS · Android · Cross-Platform</span></div></div></div>
-      <div class="service-card-wrap tilt reveal" style="transition-delay:.1s"><div class="service-card-inner"><div class="service-card service-card-front ripple-container"><div class="sc-glow"></div><div class="service-icon"><i class="fa-solid fa-robot"></i></div><h3>Automation</h3><p>Workflow automation, CRM integrations, and AI-powered business solutions.</p><div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div><span class="service-card-hint">Click to flip ↻</span></div><div class="service-card-back"><i class="fa-solid fa-robot" style="font-size:2rem;color:var(--or)"></i><h3>Automation</h3><p>Zapier, Make, n8n & custom APIs. Eliminate repetitive work and integrate your entire stack seamlessly.</p><span class="flip-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7rem"></i> CRM · Zapier · AI Workflows</span></div></div></div>
-      <div class="service-card-wrap tilt reveal" style="transition-delay:.15s"><div class="service-card-inner"><div class="service-card service-card-front ripple-container"><div class="sc-glow"></div><div class="service-icon"><i class="fa-solid fa-laptop-code"></i></div><h3>Website Design & Development</h3><p>Responsive, modern, conversion-focused websites built for speed and security.</p><div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div><span class="service-card-hint">Click to flip ↻</span></div><div class="service-card-back"><i class="fa-solid fa-laptop-code" style="font-size:2rem;color:var(--or)"></i><h3>Web Development</h3><p>React, Next.js, WordPress & custom builds. 99+ Lighthouse scores with conversion-first architecture.</p><span class="flip-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7rem"></i> React · Next.js · WordPress</span></div></div></div>
-      <div class="service-card-wrap tilt reveal" style="transition-delay:.2s"><div class="service-card-inner"><div class="service-card service-card-front ripple-container"><div class="sc-glow"></div><div class="service-icon"><i class="fa-solid fa-rocket"></i></div><h3>Performance Marketing</h3><p>Data-driven campaigns optimized for maximum ROI and scalable growth.</p><div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div><span class="service-card-hint">Click to flip ↻</span></div><div class="service-card-back"><i class="fa-solid fa-rocket" style="font-size:2rem;color:var(--or)"></i><h3>Performance Marketing</h3><p>Google Ads, Meta Ads & programmatic campaigns engineered for 3–10× ROAS with real-time optimization.</p><span class="flip-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7rem"></i> Google · Meta · Programmatic</span></div></div></div>
-      <div class="service-card-wrap tilt reveal" style="transition-delay:.25s"><div class="service-card-inner"><div class="service-card service-card-front ripple-container"><div class="sc-glow"></div><div class="service-icon"><i class="fa-solid fa-bullhorn"></i></div><h3>Digital Marketing</h3><p>SEO, Google Ads, Meta Ads, Social Media Marketing and brand awareness campaigns.</p><div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div><span class="service-card-hint">Click to flip ↻</span></div><div class="service-card-back"><i class="fa-solid fa-bullhorn" style="font-size:2rem;color:var(--or)"></i><h3>Digital Marketing</h3><p>Full-funnel digital strategy: technical SEO, content, paid social, email & influencer marketing.</p><span class="flip-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7rem"></i> SEO · Social · Email</span></div></div></div>
-      <div class="service-card-wrap tilt reveal" style="transition-delay:.3s"><div class="service-card-inner"><div class="service-card service-card-front ripple-container"><div class="sc-glow"></div><div class="service-icon"><i class="fa-solid fa-users"></i></div><h3>Lead Generation</h3><p>Qualified B2B and B2C lead generation campaigns that consistently convert.</p><div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div><span class="service-card-hint">Click to flip ↻</span></div><div class="service-card-back"><i class="fa-solid fa-users" style="font-size:2rem;color:var(--or)"></i><h3>Lead Generation</h3><p>Intent-based targeting, landing page funnels & CRM nurturing — delivering purchase-ready leads.</p><span class="flip-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7rem"></i> B2B · B2C · Funnels</span></div></div></div>
-      <div class="service-card-wrap tilt reveal" style="transition-delay:.35s"><div class="service-card-inner"><div class="service-card service-card-front ripple-container"><div class="sc-glow"></div><div class="service-icon"><i class="fa-solid fa-bullseye"></i></div><h3>Branding & PR</h3><p>Brand strategy, visual identity design, and impactful PR campaigns.</p><div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div><span class="service-card-hint">Click to flip ↻</span></div><div class="service-card-back"><i class="fa-solid fa-bullseye" style="font-size:2rem;color:var(--or)"></i><h3>Branding & PR</h3><p>Logo, brand guidelines, tone-of-voice & press outreach that makes you unforgettable and media-ready.</p><span class="flip-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7rem"></i> Identity · Guidelines · Press</span></div></div></div>
-      <div class="service-card-wrap tilt reveal" style="transition-delay:.4s"><div class="service-card-inner"><div class="service-card service-card-front ripple-container"><div class="sc-glow"></div><div class="service-icon"><i class="fa-solid fa-photo-film"></i></div><h3>Design & Video Editing</h3><p>Creative graphics, motion design, and professional video production.</p><div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div><span class="service-card-hint">Click to flip ↻</span></div><div class="service-card-back"><i class="fa-solid fa-photo-film" style="font-size:2rem;color:var(--or)"></i><h3>Design & Video</h3><p>Reels, explainer videos, UGC ads & scroll-stopping graphics crafted to boost engagement and recall.</p><span class="flip-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7rem"></i> Motion · UGC · Reels</span></div></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- SUCCESS STORIES -->
-<section class="section" id="portfolio">
-  <div class="container">
-    <div class="sec-title reveal">
-      <div class="eyebrow"><i class="fa-solid fa-trophy" style="font-size:.75rem"></i> Success Stories</div>
-      <h2>Real <em>Results</em></h2>
-      <p>Measurable outcomes we've delivered for our clients across India.</p>
-    </div>
-    <div class="success-grid">
-      <div class="success-card tilt reveal" style="transition-delay:.05s"><div class="success-num">650+</div><h3>Education Marketing Campaign</h3><p>Qualified admission leads generated</p><div class="success-detail"><div class="detail-tags"><span class="detail-tag">Meta Ads</span><span class="detail-tag">Lead Funnels</span><span class="detail-tag">WhatsApp CRM</span></div><p style="font-size:.8rem;color:var(--text);margin-top:.5rem">Ran hyper-targeted campaigns for a Coimbatore college, achieving ₹48 cost-per-lead.</p></div><div class="expand-hint">↓ Click to see details</div></div>
-      <div class="success-card tilt reveal" style="transition-delay:.1s"><div class="success-num">4.5×</div><h3>E-Commerce Growth Campaign</h3><p>Return On Ad Spend achieved</p><div class="success-detail"><div class="detail-tags"><span class="detail-tag">Google Shopping</span><span class="detail-tag">Retargeting</span><span class="detail-tag">CRO</span></div><p style="font-size:.8rem;color:var(--text);margin-top:.5rem">Scaled a fashion brand from ₹2L to ₹9L monthly ad revenue in 90 days.</p></div><div class="expand-hint">↓ Click to see details</div></div>
-      <div class="success-card tilt reveal" style="transition-delay:.15s"><div class="success-num">60%</div><h3>Business Automation Project</h3><p>Reduction in manual workload</p><div class="success-detail"><div class="detail-tags"><span class="detail-tag">Zapier</span><span class="detail-tag">CRM Integration</span><span class="detail-tag">Reporting</span></div><p style="font-size:.8rem;color:var(--text);margin-top:.5rem">Automated invoicing, follow-ups and analytics for a B2B services firm, saving 40hrs/week.</p></div><div class="expand-hint">↓ Click to see details</div></div>
-      <div class="success-card tilt reveal" style="transition-delay:.2s"><div class="success-num">3×</div><h3>Website Revamp Project</h3><p>Increase in lead conversion rate</p><div class="success-detail"><div class="detail-tags"><span class="detail-tag">UX Redesign</span><span class="detail-tag">Speed Opt.</span><span class="detail-tag">A/B Testing</span></div><p style="font-size:.8rem;color:var(--text);margin-top:.5rem">Redesigned a real estate portal — page load under 1.5s, bounce rate dropped 38%.</p></div><div class="expand-hint">↓ Click to see details</div></div>
+      <div class="service-card-wrap tilt reveal" style="transition-delay:.05s"><div class="service-card-inner"><div class="service-card service-card-front ripple-container"><div class="sc-glow"></div><div class="service-icon"><i class="fa-solid fa-mobile-screen-button"></i></div><h3>App Development</h3><p>Native Android, iOS, and cross-platform mobile apps built for performance and scale.</p><div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div><span class="service-card-hint">Hover to flip ↻</span></div><div class="service-card-back"><i class="fa-solid fa-mobile-screen-button" style="font-size:2rem;color:var(--or)"></i><h3>App Development</h3><p>We build React Native, Flutter & native apps. Full lifecycle from wireframe to App Store launch.</p><span class="flip-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7rem"></i> iOS · Android · Cross-Platform</span></div></div></div>
+      <div class="service-card-wrap tilt reveal" style="transition-delay:.1s"><div class="service-card-inner"><div class="service-card service-card-front ripple-container"><div class="sc-glow"></div><div class="service-icon"><i class="fa-solid fa-robot"></i></div><h3>Automation</h3><p>Workflow automation, CRM integrations, and AI-powered business solutions.</p><div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div><span class="service-card-hint">Hover to flip ↻</span></div><div class="service-card-back"><i class="fa-solid fa-robot" style="font-size:2rem;color:var(--or)"></i><h3>Automation</h3><p>Zapier, Make, n8n & custom APIs. Eliminate repetitive work and integrate your entire stack seamlessly.</p><span class="flip-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7rem"></i> CRM · Zapier · AI Workflows</span></div></div></div>
+      <div class="service-card-wrap tilt reveal" style="transition-delay:.15s"><div class="service-card-inner"><div class="service-card service-card-front ripple-container"><div class="sc-glow"></div><div class="service-icon"><i class="fa-solid fa-laptop-code"></i></div><h3>Website Design & Development</h3><p>Responsive, modern, conversion-focused websites built for speed and security.</p><div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div><span class="service-card-hint">Hover to flip ↻</span></div><div class="service-card-back"><i class="fa-solid fa-laptop-code" style="font-size:2rem;color:var(--or)"></i><h3>Web Development</h3><p>React, Next.js, WordPress & custom builds. 99+ Lighthouse scores with conversion-first architecture.</p><span class="flip-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7rem"></i> React · Next.js · WordPress</span></div></div></div>
+      <div class="service-card-wrap tilt reveal" style="transition-delay:.2s"><div class="service-card-inner"><div class="service-card service-card-front ripple-container"><div class="sc-glow"></div><div class="service-icon"><i class="fa-solid fa-rocket"></i></div><h3>Performance Marketing</h3><p>Data-driven campaigns optimized for maximum ROI and scalable growth.</p><div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div><span class="service-card-hint">Hover to flip ↻</span></div><div class="service-card-back"><i class="fa-solid fa-rocket" style="font-size:2rem;color:var(--or)"></i><h3>Performance Marketing</h3><p>Google Ads, Meta Ads & programmatic campaigns engineered for 3–10× ROAS with real-time optimization.</p><span class="flip-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7rem"></i> Google · Meta · Programmatic</span></div></div></div>
+      <div class="service-card-wrap tilt reveal" style="transition-delay:.25s"><div class="service-card-inner"><div class="service-card service-card-front ripple-container"><div class="sc-glow"></div><div class="service-icon"><i class="fa-solid fa-bullhorn"></i></div><h3>Digital Marketing</h3><p>SEO, Google Ads, Meta Ads, Social Media Marketing and brand awareness campaigns.</p><div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div><span class="service-card-hint">Hover to flip ↻</span></div><div class="service-card-back"><i class="fa-solid fa-bullhorn" style="font-size:2rem;color:var(--or)"></i><h3>Digital Marketing</h3><p>Full-funnel digital strategy: technical SEO, content, paid social, email & influencer marketing.</p><span class="flip-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7rem"></i> SEO · Social · Email</span></div></div></div>
+      <div class="service-card-wrap tilt reveal" style="transition-delay:.3s"><div class="service-card-inner"><div class="service-card service-card-front ripple-container"><div class="sc-glow"></div><div class="service-icon"><i class="fa-solid fa-users"></i></div><h3>Lead Generation</h3><p>Qualified B2B and B2C lead generation campaigns that consistently convert.</p><div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div><span class="service-card-hint">Hover to flip ↻</span></div><div class="service-card-back"><i class="fa-solid fa-users" style="font-size:2rem;color:var(--or)"></i><h3>Lead Generation</h3><p>Intent-based targeting, landing page funnels & CRM nurturing — delivering purchase-ready leads.</p><span class="flip-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7rem"></i> B2B · B2C · Funnels</span></div></div></div>
+      <div class="service-card-wrap tilt reveal" style="transition-delay:.35s"><div class="service-card-inner"><div class="service-card service-card-front ripple-container"><div class="sc-glow"></div><div class="service-icon"><i class="fa-solid fa-bullseye"></i></div><h3>Branding & PR</h3><p>Brand strategy, visual identity design, and impactful PR campaigns.</p><div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div><span class="service-card-hint">Hover to flip ↻</span></div><div class="service-card-back"><i class="fa-solid fa-bullseye" style="font-size:2rem;color:var(--or)"></i><h3>Branding & PR</h3><p>Logo, brand guidelines, tone-of-voice & press outreach that makes you unforgettable and media-ready.</p><span class="flip-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7rem"></i> Identity · Guidelines · Press</span></div></div></div>
+      <div class="service-card-wrap tilt reveal" style="transition-delay:.4s"><div class="service-card-inner"><div class="service-card service-card-front ripple-container"><div class="sc-glow"></div><div class="service-icon"><i class="fa-solid fa-photo-film"></i></div><h3>Design & Video Editing</h3><p>Creative graphics, motion design, and professional video production.</p><div class="service-arrow"><i class="fa-solid fa-arrow-right"></i></div><span class="service-card-hint">Hover to flip ↻</span></div><div class="service-card-back"><i class="fa-solid fa-photo-film" style="font-size:2rem;color:var(--or)"></i><h3>Design & Video</h3><p>Reels, explainer videos, UGC ads & scroll-stopping graphics crafted to boost engagement and recall.</p><span class="flip-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7rem"></i> Motion · UGC · Reels</span></div></div></div>
     </div>
   </div>
 </section>
@@ -564,6 +602,23 @@ footer{background:var(--sec);padding:4rem 0 2rem;border-top:1px solid rgba(255,1
   </div>
 </section>
 
+<!-- SUCCESS STORIES -->
+<section class="section" id="portfolio">
+  <div class="container">
+    <div class="sec-title reveal">
+      <div class="eyebrow"><i class="fa-solid fa-trophy" style="font-size:.75rem"></i> Success Stories</div>
+      <h2>Real <em>Results</em></h2>
+      <p>Measurable outcomes we've delivered for our clients across India.</p>
+    </div>
+    <div class="success-grid">
+      <div class="success-card tilt reveal" style="transition-delay:.05s"><div class="success-num">650+</div><h3>Education Marketing Campaign</h3><p>Qualified admission leads generated</p><div class="success-detail"><div class="detail-tags"><span class="detail-tag">Meta Ads</span><span class="detail-tag">Lead Funnels</span><span class="detail-tag">WhatsApp CRM</span></div><p style="font-size:.8rem;color:var(--text);margin-top:.5rem">Ran hyper-targeted campaigns for a Coimbatore college, achieving ₹48 cost-per-lead.</p></div><div class="expand-hint">↓ Click to see details</div></div>
+      <div class="success-card tilt reveal" style="transition-delay:.1s"><div class="success-num">4.5×</div><h3>E-Commerce Growth Campaign</h3><p>Return On Ad Spend achieved</p><div class="success-detail"><div class="detail-tags"><span class="detail-tag">Google Shopping</span><span class="detail-tag">Retargeting</span><span class="detail-tag">CRO</span></div><p style="font-size:.8rem;color:var(--text);margin-top:.5rem">Scaled a fashion brand from ₹2L to ₹9L monthly ad revenue in 90 days.</p></div><div class="expand-hint">↓ Click to see details</div></div>
+      <div class="success-card tilt reveal" style="transition-delay:.15s"><div class="success-num">60%</div><h3>Business Automation Project</h3><p>Reduction in manual workload</p><div class="success-detail"><div class="detail-tags"><span class="detail-tag">Zapier</span><span class="detail-tag">CRM Integration</span><span class="detail-tag">Reporting</span></div><p style="font-size:.8rem;color:var(--text);margin-top:.5rem">Automated invoicing, follow-ups and analytics for a B2B services firm, saving 40hrs/week.</p></div><div class="expand-hint">↓ Click to see details</div></div>
+      <div class="success-card tilt reveal" style="transition-delay:.2s"><div class="success-num">3×</div><h3>Website Revamp Project</h3><p>Increase in lead conversion rate</p><div class="success-detail"><div class="detail-tags"><span class="detail-tag">UX Redesign</span><span class="detail-tag">Speed Opt.</span><span class="detail-tag">A/B Testing</span></div><p style="font-size:.8rem;color:var(--text);margin-top:.5rem">Redesigned a real estate portal — page load under 1.5s, bounce rate dropped 38%.</p></div><div class="expand-hint">↓ Click to see details</div></div>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section class="section alt" id="contact">
   <div class="container">
@@ -596,19 +651,27 @@ footer{background:var(--sec);padding:4rem 0 2rem;border-top:1px solid rgba(255,1
           <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+91 93427 21163"></div>
           <div class="form-group"><label>Service Interested In</label><select><option value="" disabled selected>Select a service...</option><option>Performance Marketing</option><option>Digital Marketing</option><option>Website Design & Development</option><option>App Development</option><option>Automation</option><option>Branding & PR</option><option>Design & Video Editing</option><option>Lead Generation</option></select></div>
           <div class="form-group"><label>Message</label><textarea placeholder="Tell us about your project goals..." required></textarea></div>
-          <button type="submit" class="btn btn-primary ripple-container" style="width:100%;justify-content:center;font-size:.95rem"><i class="fa-solid fa-paper-plane" style="margin-right:8px"></i>Send Message</button>
+          <button type="submit" class="btn btn-primary ripple-container" style="width:100%;justify-content:center;font-size:.95rem"><i class="fa-solid fa-paper-plane" style="margin-right:8px"></i>Submit</button>
         </form>
       </div>
     </div>
   </div>
 </section>
-
 <!-- FOOTER -->
 <footer>
   <div class="container">
     <div class="marquee-wrap">
       <div class="marquee-track">
-        <span class="marquee-text">BUILDING THE FUTURE • </span><span class="marquee-text">BUILDING THE FUTURE • </span><span class="marquee-text">BUILDING THE FUTURE • </span><span class="marquee-text">BUILDING THE FUTURE • </span><span class="marquee-text">BUILDING THE FUTURE • </span><span class="marquee-text">BUILDING THE FUTURE • </span><span class="marquee-text">BUILDING THE FUTURE • </span><span class="marquee-text">BUILDING THE FUTURE • </span>
+        <div class="marquee-item"><i class="fa-brands fa-google"></i><span>Google</span></div>
+        <div class="marquee-item"><i class="fa-brands fa-facebook-f"></i><span>Meta</span></div>
+        <div class="marquee-item"><i class="fa-brands fa-microsoft"></i><span>Microsoft</span></div>
+        <div class="marquee-item"><i class="fa-brands fa-bing"></i><span>Bing</span></div>
+        <div class="marquee-item"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></div>
+        <div class="marquee-item"><i class="fa-brands fa-google"></i><span>Google</span></div>
+        <div class="marquee-item"><i class="fa-brands fa-facebook-f"></i><span>Meta</span></div>
+        <div class="marquee-item"><i class="fa-brands fa-microsoft"></i><span>Microsoft</span></div>
+        <div class="marquee-item"><i class="fa-brands fa-bing"></i><span>Bing</span></div>
+        <div class="marquee-item"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></div>
       </div>
     </div>
     <div class="footer-grid">
@@ -718,6 +781,15 @@ document.querySelectorAll('a,button,.tilt,.pill,.client-logo,.ind-card,.cinfo-it
 });
 document.addEventListener('mousedown',()=>document.body.classList.add('cursor-click'));
 document.addEventListener('mouseup',()=>document.body.classList.remove('cursor-click'));
+
+const isTouchDevice = window.matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0 || 'ontouchstart' in window;
+if(isTouchDevice){
+  document.body.classList.add('touch-device');
+  const curEl = document.getElementById('cursor');
+  const ringEl = document.getElementById('cursor-ring');
+  if(curEl) curEl.style.display = 'none';
+  if(ringEl) ringEl.style.display = 'none';
+}
 
 const chatWidget=document.getElementById('chat-widget');
 const chatPanel=document.getElementById('chat-panel');
@@ -982,12 +1054,7 @@ function initParallax(){
 }
 
 /* ── INTERACTIVE: SERVICE CARD FLIP ── */
-document.querySelectorAll('.service-card-wrap').forEach(wrap=>{
-  wrap.addEventListener('click',e=>{
-    if(e.target.closest('.ripple-container')){}
-    wrap.classList.toggle('flipped');
-  });
-});
+/* Flip is now handled on hover via CSS. */
 
 /* ── INTERACTIVE: SUCCESS CARD EXPAND ── */
 document.querySelectorAll('.success-card').forEach(card=>{
@@ -1050,13 +1117,26 @@ document.querySelectorAll('.client-logo').forEach(logo=>{
   inputs.forEach(i=>i.addEventListener('input',updateProgress));
 })();
 function initAll(){
-  initTilt();
-  initServiceGlow();
+  if(!isTouchDevice){
+    initTilt();
+    initServiceGlow();
+  }
   initRipple();
   initObserver();
   initGSAP();
   initMagnetic();
   initParallax();
+  if(isTouchDevice){
+    initTouchCardFlip();
+  }
+}
+
+function initTouchCardFlip(){
+  document.querySelectorAll('.service-card-wrap').forEach(wrap=>{
+    wrap.addEventListener('click',()=>{
+      wrap.classList.toggle('flipped');
+    });
+  });
 }
 </script>
 </body>
